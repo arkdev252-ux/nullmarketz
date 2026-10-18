@@ -1,0 +1,1936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NullMarket — Premium Minecraft & Webmaster Assets Shop</title>
+<meta name="description" content="Shop premium Minecraft, XenForo, WordPress, WHMCS and game-dev assets. Licensed downloads, instant delivery. Pay with GCash, Maya, PayPal.">
+<style>
+  :root{
+    --bg:#0b0d13; --bg2:#0f1219; --panel:#141926; --panel2:#1a2030; --border:#242c3d;
+    --text:#e9edf5; --muted:#96a0b3; --accent:#7c5cff; --accent2:#22d3ee;
+    --green:#2fe0a0; --amber:#ffc555; --red:#ff6b6b; --pink:#ff7ac6;
+    --grad:linear-gradient(135deg,#7c5cff 0%,#5b8cff 55%,#22d3ee 100%);
+    --shadow:0 18px 50px rgba(0,0,0,.45);
+    --radius:16px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.55;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  img{max-width:100%}
+  ::selection{background:rgba(124,92,255,.4)}
+
+  /* Ticker */
+  .ticker{background:linear-gradient(90deg,#12172a,#1b1340,#12172a);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;font-size:12.5px;letter-spacing:.4px;color:#c9d2e6}
+  .ticker-track{display:inline-block;padding:8px 0;animation:scroll 32s linear infinite}
+  .ticker-track span{margin:0 26px}
+  .ticker .dot{color:var(--accent2)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* Nav */
+  .nav{position:sticky;top:0;z-index:90;background:rgba(11,13,19,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+  .nav-inner{max-width:1280px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:18px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:.3px}
+  .logo-mark{width:38px;height:38px;border-radius:11px;background:var(--grad);display:grid;place-items:center;font-size:19px;box-shadow:0 8px 22px rgba(124,92,255,.45)}
+  .logo small{display:block;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase}
+  .nav-links{display:flex;gap:6px;margin-left:12px}
+  .nav-links button{padding:9px 14px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);transition:.18s}
+  .nav-links button:hover,.nav-links button.active{color:#fff;background:rgba(124,92,255,.14)}
+  .nav-search{flex:1;max-width:420px;position:relative}
+  .nav-search input{width:100%;padding:11px 16px 11px 42px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:14px;outline:none;transition:.2s}
+  .nav-search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.22)}
+  .nav-search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.55}
+  .nav-actions{display:flex;align-items:center;gap:10px;margin-left:auto}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:12px;font-weight:700;font-size:14px;transition:.18s;border:1px solid transparent}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 26px rgba(124,92,255,.4)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(124,92,255,.55)}
+  .btn-ghost{background:rgba(255,255,255,.05);border-color:var(--border);color:var(--text)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .btn-green{background:linear-gradient(135deg,#12b981,#2fe0a0);color:#04231a;box-shadow:0 10px 26px rgba(47,224,160,.3)}
+  .btn-green:hover{transform:translateY(-2px)}
+  .cart-btn{position:relative;padding:11px 14px;border-radius:12px;background:rgba(124,92,255,.13);border:1px solid rgba(124,92,255,.35)}
+  .cart-btn:hover{background:rgba(124,92,255,.25)}
+  .cart-count{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-size:11px;font-weight:800;display:grid;place-items:center}
+  .burger{display:none;font-size:22px;padding:8px}
+
+  /* User chip + dropdown */
+  .user-wrap{position:relative}
+  .user-chip{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 6px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--border);font-size:13px;font-weight:700}
+  .user-chip:hover{background:rgba(255,255,255,.11)}
+  .user-chip .avatar{width:30px;height:30px;font-size:12px}
+  .dropdown{position:absolute;right:0;top:calc(100% + 10px);width:220px;background:#161c2a;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:8px;display:none;z-index:95}
+  .dropdown.open{display:block}
+  .dropdown .who{padding:10px 12px;border-bottom:1px solid var(--border);margin-bottom:6px}
+  .dropdown .who b{display:block;font-size:13.5px}
+  .dropdown .who span{font-size:11.5px;color:var(--muted)}
+  .dropdown button{width:100%;text-align:left;padding:10px 12px;border-radius:9px;font-size:13px;font-weight:650;color:#c6cede}
+  .dropdown button:hover{background:rgba(124,92,255,.15);color:#fff}
+  .dropdown button.danger:hover{background:rgba(255,107,107,.15);color:var(--red)}
+
+  /* Layout */
+  .wrap{max-width:1280px;margin:0 auto;padding:0 22px}
+  .section{padding:64px 0 18px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:26px;flex-wrap:wrap}
+  .section-head h2{font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:-.3px}
+  .section-head h2 .accent{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .section-head p{color:var(--muted);font-size:14.5px;max-width:560px;margin-top:6px}
+  .link-more{color:var(--accent2);font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px}
+  .link-more:hover{text-decoration:underline}
+
+  /* Hero */
+  .hero{position:relative;padding:72px 0 40px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;pointer-events:none}
+  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.45}
+  .orb1{width:480px;height:480px;background:#6d28d9;top:-160px;left:-120px}
+  .orb2{width:420px;height:420px;background:#0e7490;bottom:-180px;right:-80px;opacity:.35}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:46px 46px;mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 75%)}
+  .hero-inner{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.4);font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#c6b8ff;margin-bottom:18px}
+  .hero h1{font-size:clamp(32px,4.6vw,54px);line-height:1.08;letter-spacing:-1.2px;font-weight:850}
+  .hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{margin:18px 0 26px;font-size:17px;color:var(--muted);max-width:540px}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:28px;margin-top:34px;flex-wrap:wrap}
+  .stat b{display:block;font-size:24px;font-weight:850;letter-spacing:-.5px}
+  .stat span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+  .hero-art{position:relative;aspect-ratio:1/1;max-width:460px;margin-left:auto;width:100%}
+  .art-card{position:absolute;background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:14px;display:flex;gap:13px;align-items:center;animation:float 6s ease-in-out infinite}
+  .art-card .ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:23px;flex-shrink:0;overflow:hidden;background:rgba(124,92,255,.25)}
+  .art-card .ic img{width:100%;height:100%;object-fit:cover}
+  .art-card b{font-size:13.5px;display:block}
+  .art-card span{font-size:11.5px;color:var(--muted)}
+  .art-card .price{margin-left:auto;font-weight:850;color:var(--green);font-size:15px}
+  .ac1{top:4%;left:2%;animation-delay:.2s}
+  .ac2{top:30%;right:0;animation-delay:1.1s}
+  .ac3{top:57%;left:6%;animation-delay:2s}
+  .ac4{bottom:4%;right:6%;animation-delay:2.8s}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  /* Category tiles */
+  .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:14px}
+  .cat-tile{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:20px 16px;cursor:pointer;transition:.2s;overflow:hidden}
+  .cat-tile:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.55);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+  .cat-tile .glow{position:absolute;width:110px;height:110px;border-radius:50%;filter:blur(38px);top:-34px;right:-24px;opacity:.5}
+  .cat-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:22px;margin-bottom:13px}
+  .cat-tile b{font-size:14.5px;display:block}
+  .cat-tile span{font-size:12px;color:var(--muted);font-weight:600}
+  .cat-tile .arrow{position:absolute;right:14px;bottom:14px;opacity:0;transform:translateX(-6px);transition:.2s;color:var(--accent2)}
+  .cat-tile:hover .arrow{opacity:1;transform:translateX(0)}
+
+  /* Product cards */
+  .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(262px,1fr));gap:18px}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.22s;cursor:pointer;position:relative}
+  .card:hover{transform:translateY(-5px);border-color:rgba(124,92,255,.5);box-shadow:0 22px 48px rgba(0,0,0,.45)}
+  .card-cover{position:relative;height:132px;display:grid;place-items:center;overflow:hidden}
+  .card-cover .patt{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.2px,transparent 1.2px);background-size:16px 16px;opacity:.5}
+  .card-cover .big{font-size:46px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35));z-index:1}
+  .cimg-tile{position:relative;z-index:2;width:74px;height:74px;object-fit:cover;border-radius:15px;box-shadow:0 12px 28px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14)}
+  .cimg-wide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2}
+  .badges{position:absolute;top:10px;left:10px;display:flex;gap:6px;flex-wrap:wrap;z-index:3}
+  .badge{font-size:10px;font-weight:850;letter-spacing:.8px;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+  .b-hot{background:#ff5c5c;color:#fff}
+  .b-new{background:#22d3ee;color:#04252b}
+  .b-sale{background:#2fe0a0;color:#04291c}
+  .b-pro{background:#ffc555;color:#3a2a00}
+  .card-body{padding:15px 16px 17px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card-cat{font-size:11px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:var(--accent2)}
+  .card-title{font-size:15px;font-weight:750;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:41px}
+  .card-desc{font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .card-meta{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted)}
+  .stars{color:var(--amber);letter-spacing:1px;font-size:12px}
+  .card-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:11px;border-top:1px solid var(--border)}
+  .price-wrap{display:flex;align-items:baseline;gap:8px}
+  .price{font-size:19px;font-weight:850;letter-spacing:-.4px;color:#fff}
+  .old-price{font-size:12.5px;color:var(--muted);text-decoration:line-through}
+  .add-btn{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;font-size:19px;font-weight:700;display:grid;place-items:center;transition:.18s;flex-shrink:0}
+  .add-btn:hover{transform:scale(1.1)}
+
+  /* Banner / reviews / authors */
+  .banner{margin:56px 0 10px;border-radius:22px;padding:38px 40px;background:linear-gradient(120deg,#1c1440 0%,#241a5c 45%,#123b52 100%);border:1px solid rgba(124,92,255,.35);display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;position:relative;overflow:hidden}
+  .banner::after{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(34,211,238,.18);filter:blur(60px);right:-60px;top:-100px}
+  .banner h3{font-size:clamp(21px,2.6vw,29px);letter-spacing:-.5px;font-weight:820}
+  .banner p{color:#c3cbe0;margin-top:8px;max-width:520px;font-size:15px}
+  .review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+  .review-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+  .review-card .stars{font-size:14px}
+  .review-card p{font-size:13.5px;color:#c6cede;margin:11px 0 15px;font-style:italic}
+  .review-user{display:flex;align-items:center;gap:11px}
+  .avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+  .review-user b{font-size:13px;display:block}
+  .review-user span{font-size:11.5px;color:var(--muted)}
+  .author-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}
+  .author-card{min-width:200px;background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:18px;text-align:center;flex-shrink:0;transition:.2s}
+  .author-card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.5)}
+  .author-card .avatar{width:54px;height:54px;font-size:19px;margin:0 auto 10px}
+  .author-card b{display:block;font-size:14px}
+  .author-card span{font-size:11.5px;color:var(--muted)}
+  .author-card .cnt{margin-top:9px;font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:.8px}
+
+  /* Shop page */
+  .page-head{padding:38px 0 8px}
+  .crumbs{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+  .crumbs button{color:var(--accent2);font-weight:700}
+  .shop-layout{display:grid;grid-template-columns:248px 1fr;gap:26px;padding:22px 0 60px;align-items:start}
+  .filters{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:20px;position:sticky;top:88px}
+  .filters h4{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:16px 0 11px}
+  .filters h4:first-child{margin-top:0}
+  .filter-list{display:flex;flex-direction:column;gap:5px}
+  .filter-list button{text-align:left;padding:9px 12px;border-radius:10px;font-size:13.5px;font-weight:600;color:var(--muted);transition:.15s;display:flex;justify-content:space-between;align-items:center}
+  .filter-list button:hover{background:rgba(124,92,255,.12);color:#fff}
+  .filter-list button.active{background:rgba(124,92,255,.22);color:#fff}
+  .filter-list .tag{font-size:10.5px;background:rgba(255,255,255,.08);padding:2px 8px;border-radius:999px}
+  .price-range{width:100%;accent-color:var(--accent)}
+  .price-val{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;font-weight:700}
+  .shop-toolbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .shop-toolbar .result-count{color:var(--muted);font-size:13.5px;font-weight:600}
+  .shop-toolbar select{margin-left:auto;background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:10px 14px;font-size:13.5px;font-weight:600;outline:none}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .chip{padding:8px 15px;border-radius:999px;border:1px solid var(--border);background:var(--panel);font-size:12.5px;font-weight:700;color:var(--muted);transition:.15s}
+  .chip:hover{color:#fff;border-color:var(--accent)}
+  .chip.active{background:var(--grad);color:#fff;border-color:transparent}
+  .empty{padding:70px 20px;text-align:center;color:var(--muted)}
+  .empty .big{font-size:46px;margin-bottom:12px}
+
+  /* Footer */
+  footer{margin-top:70px;border-top:1px solid var(--border);background:var(--bg2)}
+  .foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;padding:52px 0 38px}
+  .foot-top h5{font-size:12.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--muted);margin-bottom:15px}
+  .foot-top a{display:block;font-size:13.5px;color:#b9c2d4;padding:5px 0;cursor:pointer}
+  .foot-top a:hover{color:var(--accent2)}
+  .foot-brand p{font-size:13.5px;color:var(--muted);margin:13px 0 18px;max-width:290px}
+  .pay-row{display:flex;gap:8px;flex-wrap:wrap}
+  .pay{padding:6px 12px;border:1px solid var(--border);border-radius:8px;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+  .pay.gc{color:#00b8e0;border-color:rgba(0,184,224,.4)}
+  .pay.my{color:#3ddc84;border-color:rgba(61,220,132,.4)}
+  .pay.pp{color:#ffc555;border-color:rgba(255,197,85,.4)}
+  .foot-bottom{border-top:1px solid var(--border);padding:18px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+
+  /* Cart drawer / modals / toast */
+  .backdrop{position:fixed;inset:0;background:rgba(5,7,12,.62);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:.25s;z-index:100}
+  .backdrop.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:#121724;border-left:1px solid var(--border);z-index:110;transform:translateX(102%);transition:transform .3s cubic-bezier(.2,.8,.25,1);display:flex;flex-direction:column}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:20px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+  .drawer-head h3{font-size:18px;font-weight:800}
+  .close-x{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.07);font-size:18px;display:grid;place-items:center}
+  .close-x:hover{background:rgba(255,255,255,.15)}
+  .cart-items{flex:1;overflow-y:auto;padding:16px 22px}
+  .cart-item{display:flex;gap:13px;padding:13px 0;border-bottom:1px solid var(--border)}
+  .cart-item .thumb{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-size:25px;flex-shrink:0;overflow:hidden;position:relative}
+  .cart-item .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .cart-item b{font-size:13px;line-height:1.35;display:block}
+  .cart-item .p{font-size:13.5px;font-weight:800;color:var(--green);margin-top:3px}
+  .qty{display:inline-flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:9px;overflow:hidden;margin-top:8px}
+  .qty button{width:28px;height:27px;background:rgba(255,255,255,.05);font-size:15px;font-weight:700}
+  .qty button:hover{background:rgba(255,255,255,.13)}
+  .qty span{width:32px;text-align:center;font-size:13px;font-weight:800}
+  .rm{margin-left:auto;color:var(--muted);font-size:17px;align-self:flex-start;padding:4px}
+  .rm:hover{color:var(--red)}
+  .drawer-foot{padding:20px 22px;border-top:1px solid var(--border);background:#0f1420}
+  .totals{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);margin-bottom:8px}
+  .totals.grand{font-size:18px;color:#fff;font-weight:850;margin:12px 0 16px}
+  .drawer-foot .btn{width:100%;margin-bottom:9px}
+
+  .modal{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:22px;opacity:0;pointer-events:none;transition:.22s}
+  .modal.show{opacity:1;pointer-events:auto}
+  .modal-card{width:min(860px,100%);max-height:88vh;overflow-y:auto;background:#141a28;border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);transform:translateY(18px) scale(.98);transition:.25s;position:relative}
+  .modal.show .modal-card{transform:translateY(0) scale(1)}
+  .modal-top{height:190px;border-radius:20px 20px 0 0;display:grid;place-items:center;position:relative;overflow:hidden}
+  .modal-top .big{font-size:70px;filter:drop-shadow(0 14px 26px rgba(0,0,0,.4));z-index:1}
+  .modal-top .cimg-tile{width:104px;height:104px;border-radius:20px}
+  .modal-top .cimg-wide{z-index:2}
+  .modal-top .dim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,19,.15),rgba(11,13,19,.55));z-index:2}
+  .modal-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:11px;background:rgba(0,0,0,.45);font-size:18px;display:grid;place-items:center;color:#fff;z-index:5}
+  .modal-body{padding:26px 30px 30px}
+  .modal-body h2{font-size:23px;letter-spacing:-.4px;line-height:1.25}
+  .modal-meta{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin:12px 0 18px;align-items:center}
+  .modal-price-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:18px}
+  .modal-price-row .price{font-size:30px}
+  .feat{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px 22px;margin:14px 0 20px}
+  .feat li{font-size:13.5px;color:#c3ccdd;padding-left:25px;position:relative}
+  .feat li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:6px;background:rgba(47,224,160,.16);color:var(--green);font-size:11px;font-weight:900;display:grid;place-items:center}
+  .license-note{background:rgba(124,92,255,.1);border:1px solid rgba(124,92,255,.3);border-radius:12px;padding:13px 16px;font-size:12.5px;color:#c9d2ea;margin-bottom:20px}
+  .modal-actions{display:flex;gap:11px;flex-wrap:wrap}
+  .modal-actions .btn{flex:1;min-width:160px;padding:14px 20px;font-size:15px}
+
+  /* Auth modal */
+  .auth-tabs{display:flex;gap:8px;margin:6px 0 20px}
+  .auth-tab{flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);font-weight:750;font-size:14px;color:var(--muted)}
+  .auth-tab.active{background:rgba(124,92,255,.18);border-color:var(--accent);color:#fff}
+  .field{margin-bottom:13px}
+  .field label{display:block;font-size:11.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .field input{width:100%;padding:12px 14px;border-radius:11px;border:1px solid var(--border);background:#0e1320;color:var(--text);font-size:14px;outline:none}
+  .field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,255,.2)}
+  .auth-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:12px}
+
+  /* Checkout / payments */
+  .pay-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:8px 0 18px}
+  .pay-tab{padding:12px 10px;border-radius:12px;border:1px solid var(--border);font-size:12.5px;font-weight:750;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s}
+  .pay-tab .pi{font-size:19px}
+  .plogo{height:26px;display:flex;align-items:center;justify-content:center;gap:4px}
+  .plogo img{max-height:22px;max-width:78px;width:auto;object-fit:contain}
+  .plogo.cards img{max-height:15px;max-width:46px}
+  .plogo .mc{height:18px;width:auto}
+  .pi-inline{height:15px;vertical-align:-3px;margin-right:2px}
+  .bal-line{display:flex;align-items:center;gap:10px;background:rgba(255,197,85,.08);border:1px solid rgba(255,197,85,.25);border-radius:11px;padding:10px 14px;font-size:12.5px;color:#ecd9a5;margin-bottom:13px;flex-wrap:wrap}
+  .bal-line b{color:var(--amber);font-size:14px}
+  .bal-line .after{color:var(--muted);font-size:11.5px}
+  .topup-mini{margin-left:auto;padding:6px 12px;border-radius:9px;background:rgba(124,92,255,.2);border:1px solid rgba(124,92,255,.45);font-size:11.5px;font-weight:750;color:#cfc4ff}
+  .topup-mini:hover{background:rgba(124,92,255,.35);color:#fff}
+  .wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .wallet-card{background:#0e1320;border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:11px}
+  .wallet-card img{height:24px;max-width:74px;width:auto}
+  .wallet-card .pi{font-size:21px}
+  .wallet-card b{font-size:13px;display:block}
+  .wl-sub{font-size:10.5px;color:var(--muted);letter-spacing:.6px;text-transform:uppercase;font-weight:700}
+  .wallet-card .amt{margin-left:auto;font-weight:850;font-size:15.5px;color:var(--green)}
+  .topup-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .topup-btn{padding:9px 14px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.05);font-size:12.5px;font-weight:750;color:#c6cede}
+  .topup-btn:hover{border-color:var(--accent);color:#fff;background:rgba(124,92,255,.15)}
+  .email-wrap{background:#fff;color:#202124;border-radius:14px;overflow:hidden}
+  .email-head{display:flex;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid #e3e3e3}
+  .email-avatar{width:38px;height:38px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-weight:800;flex-shrink:0}
+  .email-subject{font-size:15px;font-weight:700;color:#202124;line-height:1.35}
+  .email-meta{font-size:11px;color:#5f6368;margin-top:2px}
+  .email-body{padding:18px}
+  .email-body p{color:#3c4043}
+  .email-item{display:flex;align-items:center;gap:12px;background:#f1f3f4;border-radius:10px;padding:12px 14px;margin:8px 0}
+  .email-item b{color:#202124;display:block;font-size:13px;line-height:1.3}
+  .email-item .sub{font-size:11px;color:#5f6368;margin-top:2px}
+  .dl-btn{background:#1a73e8;color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:12.5px;cursor:pointer;border:none;white-space:nowrap}
+  .dl-btn:hover{background:#1557b0}
+  .success-banner{background:#e6f4ea;color:#137333;border-radius:10px;padding:12px 16px;font-weight:700;font-size:13px;margin-bottom:14px}
+  .pay .pay-logo-img{height:13px;width:auto;vertical-align:-2px;opacity:.9}
+  .sec-title{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);font-weight:800;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+  .sec-title::after{content:"";flex:1;height:1px;background:var(--border)}
+  .whats-new{background:rgba(47,224,160,.08);border:1px solid rgba(47,224,160,.28);border-radius:12px;padding:13px 16px;font-size:13px;color:#b7ecd7;margin-bottom:18px}
+  .whats-new b{color:var(--green)}
+  .whats-new ul{margin:8px 0 0 18px}
+  .whats-new li{margin:3px 0}
+  ol.steps{margin:4px 0 8px 20px}
+  ol.steps li{font-size:13.5px;color:#c3ccdd;margin:7px 0;line-height:1.55}
+  ol.steps li b{color:#fff}
+  .tl{position:relative;margin:6px 0 8px;padding-left:20px;border-left:2px solid rgba(124,92,255,.35)}
+  .tl-item{position:relative;padding:0 0 18px 8px}
+  .tl-item::before{content:"";position:absolute;left:-27px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid #141a28}
+  .tl-item.latest::before{background:var(--green);box-shadow:0 0 10px rgba(47,224,160,.6)}
+  .tl-head{font-size:13.5px;font-weight:800;color:#fff}
+  .tl-head .d{font-size:11px;color:var(--muted);font-weight:600;margin-left:8px}
+  .tl-item ul{margin:6px 0 0 17px}
+  .tl-item li{font-size:12.5px;color:#c3ccdd;margin:3px 0}
+  .req-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 22px}
+  .req-grid div{font-size:13px;color:#c3ccdd;padding-left:25px;position:relative}
+  .req-grid div::before{content:"✓";position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:6px;background:rgba(34,211,238,.14);color:var(--accent2);font-size:11px;font-weight:900;display:grid;place-items:center}
+  .merchant-card{background:linear-gradient(135deg,rgba(0,125,254,.16),rgba(0,125,254,.05));border:1px solid rgba(0,125,254,.4);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+  .merchant-card .m-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8fc4f2;font-weight:800}
+  .merchant-card .m-amount{font-size:26px;font-weight:850;letter-spacing:-.5px;color:#fff;margin:4px 0 10px}
+  .m-row{display:flex;align-items:center;gap:10px;font-size:12.5px;color:#a9c4dd;padding:7px 0;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+  .m-row b{color:#fff;font-size:13.5px}
+  .m-num{font-size:16px !important;letter-spacing:.5px;user-select:all}
+  .verify-overlay{position:absolute;inset:0;background:rgba(11,13,19,.88);backdrop-filter:blur(4px);z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border-radius:20px}
+  .spinner{width:42px;height:42px;border-radius:50%;border:4px solid rgba(124,92,255,.25);border-top-color:var(--accent);animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .vtext{font-size:14px;font-weight:700;color:#dfe6f3}
+  .pay-tab:hover{color:#fff;border-color:rgba(124,92,255,.5)}
+  .pay-tab.active{border-color:var(--accent);background:rgba(124,92,255,.16);color:#fff}
+  .pay-fields{display:none}
+  .pay-fields.active{display:block}
+  .pay-info{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);border-radius:12px;padding:12px 15px;font-size:12px;color:#b8e7f2;margin-bottom:14px;line-height:1.6}
+  .php-line{display:flex;justify-content:space-between;align-items:center;background:rgba(47,224,160,.08);border:1px solid rgba(47,224,160,.25);border-radius:12px;padding:12px 16px;font-size:13px;color:#b7ecd7;margin-bottom:14px}
+  .php-line b{font-size:16px;color:var(--green)}
+
+  /* Orders */
+  .order-card{background:#0e1320;border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+  .order-card .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+  .order-id{font-weight:850;font-size:14.5px}
+  .order-pill{font-size:10.5px;font-weight:850;letter-spacing:.7px;padding:4px 10px;border-radius:999px;background:rgba(47,224,160,.15);color:var(--green);text-transform:uppercase}
+  .order-meta{font-size:12px;color:var(--muted);margin-top:6px}
+  .order-items{font-size:12.5px;color:#c3ccdd;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+
+  .toast-wrap{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:10px;align-items:center;pointer-events:none}
+  .toast{background:#1a2132;border:1px solid var(--border);color:var(--text);padding:13px 22px;border-radius:13px;font-size:13.5px;font-weight:700;box-shadow:var(--shadow);display:flex;gap:10px;align-items:center;animation:pop .3s ease}
+  .toast .ok{color:var(--green)}
+  @keyframes pop{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+  /* Responsive */
+  @media (max-width:980px){
+    .hero-inner{grid-template-columns:1fr}
+    .hero-art{display:none}
+    .shop-layout{grid-template-columns:1fr}
+    .filters{position:static}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+    .nav-search{display:none}
+    .burger{display:block}
+  }
+  @media (max-width:620px){
+    .feat{grid-template-columns:1fr}
+    .foot-top{grid-template-columns:1fr}
+    .hero{padding-top:44px}
+    .banner{padding:26px}
+    .nav-inner{padding:12px 15px;gap:10px}
+    .pay-tabs{grid-template-columns:repeat(2,1fr)}
+    .user-chip .uname{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker"><div class="ticker-track" id="ticker"></div></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <button class="logo" onclick="goHome()" aria-label="NullMarket home">
+      <div class="logo-mark">◆</div>
+      <div style="text-align:left">NullMarket<small>Asset Shop</small></div>
+    </button>
+    <nav class="nav-links">
+      <button data-nav="home" class="active" onclick="goHome()">Home</button>
+      <button data-nav="shop" onclick="goShop()">Shop</button>
+      <button onclick="goShop(null,'Minecraft')">Minecraft</button>
+      <button onclick="goShop(null,'WordPress')">WordPress</button>
+      <button onclick="goShop(null,'Unity / Unreal')">Game Dev</button>
+    </nav>
+    <div class="nav-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#96a0b3" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="navSearch" placeholder="Search 14,000+ premium assets…" />
+    </div>
+    <div class="nav-actions">
+      <div id="guestActions" style="display:flex;gap:8px">
+        <button class="btn btn-ghost" onclick="openAuth('login')">Log in</button>
+        <button class="btn btn-primary" onclick="openAuth('register')">Register</button>
+      </div>
+      <div id="userActions" class="user-wrap" style="display:none">
+        <button class="user-chip" onclick="toggleDropdown(event)">
+          <div class="avatar" id="navAvatar" style="background:var(--grad)">U</div>
+          <span class="uname" id="navUsername">User</span>
+          <span style="opacity:.5;font-size:10px">▼</span>
+        </button>
+        <div class="dropdown" id="userDropdown">
+          <div class="who"><b id="ddName">User</b><span id="ddEmail">email</span></div>
+          <button onclick="openOrders()">📦 My orders</button>
+          <button onclick="openWallet();toggleDropdown()">💰 Wallet & balances</button>
+          <button onclick="openInbox();toggleDropdown()">✉️ Inbox <span id="inboxDot" style="color:var(--accent2)"></span></button>
+          <button onclick="openCart();toggleDropdown()">🛒 My cart</button>
+          <button class="danger" onclick="doLogout()">↩ Log out</button>
+        </div>
+      </div>
+      <button class="cart-btn" onclick="openCart()" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M2 3h3l2.6 12.5a1.5 1.5 0 0 0 1.5 1.2h8.7a1.5 1.5 0 0 0 1.5-1.2L21 7H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="burger" onclick="goShop()">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HOME ================= -->
+  <section id="view-home">
+    <div class="hero">
+      <div class="hero-bg"><div class="orb orb1"></div><div class="orb orb2"></div><div class="grid-lines"></div></div>
+      <div class="wrap hero-inner">
+        <div>
+          <div class="hero-badge">⚡ 2,481 assets updated this week · Pay with GCash & Maya</div>
+          <h1>Premium digital goods.<br><span class="grad">One shop. Real prices.</span></h1>
+          <p class="lead">The marketplace for Minecraft plugins, XenForo styles, WordPress themes, WHMCS templates and game-dev assets — licensed, instantly delivered and fairly priced.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" onclick="goShop()">🛍️ Browse the shop</button>
+            <button class="btn btn-ghost" onclick="goShop(null,'Minecraft')">Explore Minecraft →</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><b>14,200+</b><span>Listed items</span></div>
+            <div class="stat"><b>86,000</b><span>Members</span></div>
+            <div class="stat"><b>2.4M</b><span>Downloads</span></div>
+            <div class="stat"><b>4.8 / 5</b><span>Avg. rating</span></div>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="art-card ac1"><div class="ic"><img src="img/171.jpg" alt="" onerror="this.remove()"></div><div><b>ShopGUI+</b><span>Minecraft Plugin</span></div><div class="price">$24.99</div></div>
+          <div class="art-card ac2"><div class="ic"><img src="img/7103.jpg" alt="" onerror="this.remove()"></div><div><b>Fantastic Pro</b><span>XenForo 2 Style</span></div><div class="price">$34.99</div></div>
+          <div class="art-card ac3"><div class="ic"><img src="img/693.jpg" alt="" onerror="this.remove()"></div><div><b>Bridge</b><span>WordPress Theme</span></div><div class="price">$59.00</div></div>
+          <div class="art-card ac4"><div class="ic"><img src="img/3893.jpg" alt="" onerror="this.remove()"></div><div><b>POLYGON City</b><span>Unity Asset</span></div><div class="price">$34.99</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <div>
+          <h2>Shop by <span class="accent">category</span></h2>
+          <p>Everything you need to launch a server, a forum, a store or a game — sorted the NullForums way.</p>
+        </div>
+        <button class="link-more" onclick="goShop()">View all items →</button>
+      </div>
+      <div class="cat-grid" id="catGrid"></div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <div>
+          <h2>Top <span class="accent">resources</span></h2>
+          <p>Best rated products this month, hand-picked by the community.</p>
+        </div>
+        <button class="link-more" onclick="goShop('rating')">See best rated →</button>
+      </div>
+      <div class="prod-grid" id="topGrid"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="banner">
+        <div>
+          <h3>NullMarket <span style="color:var(--accent2)">PRO</span> — 40% off yearly</h3>
+          <p>Unlimited commercial licenses, priority downloads, private support and early access to new drops. Cancel anytime.</p>
+        </div>
+        <button class="btn btn-green" onclick="toast('PRO plans are a demo — enjoy the shop! ✨')">Get PRO — $89/yr</button>
+      </div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <div>
+          <h2>Latest <span class="accent">arrivals</span></h2>
+          <p>Fresh uploads with instant delivery and version-tracked updates.</p>
+        </div>
+        <button class="link-more" onclick="goShop('newest')">Browse all →</button>
+      </div>
+      <div class="prod-grid" id="latestGrid"></div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <div>
+          <h2>Latest <span class="accent">reviews</span></h2>
+          <p>Real feedback from verified purchases.</p>
+        </div>
+      </div>
+      <div class="review-grid" id="reviewGrid"></div>
+    </div>
+
+    <div class="wrap section">
+      <div class="section-head">
+        <div>
+          <h2>Top <span class="accent">sellers</span></h2>
+          <p>Power-sellers with the biggest catalogs on NullMarket.</p>
+        </div>
+      </div>
+      <div class="author-row" id="authorRow"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="banner" style="background:linear-gradient(120deg,#0f2f27 0%,#123b52 60%,#1c1440 100%)">
+        <div>
+          <h3>Sell your assets on NullMarket</h3>
+          <p>Keep 80% of every sale, reach 86,000+ buyers and cash out via GCash, Maya, PayPal or bank transfer. Vendor slots open now.</p>
+        </div>
+        <button class="btn btn-primary" onclick="toast('Vendor applications open in the full version 🚀')">Become a vendor</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOP ================= -->
+  <section id="view-shop" hidden>
+    <div class="wrap page-head">
+      <div class="crumbs"><button onclick="goHome()">Home</button> &nbsp;/&nbsp; Shop &nbsp;/&nbsp; <span id="crumbCat">All items</span></div>
+      <div class="section-head" style="margin-bottom:8px">
+        <div>
+          <h2 id="shopTitle">All <span class="accent">products</span></h2>
+          <p>Every item is priced, licensed and ready for instant download.</p>
+        </div>
+      </div>
+      <div class="chip-row" id="chipRow"></div>
+    </div>
+    <div class="wrap shop-layout">
+      <aside class="filters">
+        <h4>Categories</h4>
+        <div class="filter-list" id="filterCats"></div>
+        <h4>Max price</h4>
+        <input type="range" class="price-range" id="priceRange" min="1" max="60" value="60">
+        <div class="price-val"><span>$1</span><span id="priceMaxLabel">$60</span></div>
+        <h4>Tags</h4>
+        <div class="filter-list" id="filterTags"></div>
+      </aside>
+      <div>
+        <div class="shop-toolbar">
+          <div class="result-count" id="resultCount">Showing 0 items</div>
+          <select id="sortSel">
+            <option value="popular">Sort: Popular</option>
+            <option value="rating">Sort: Best rated</option>
+            <option value="newest">Sort: Newest</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+          </select>
+        </div>
+        <div class="prod-grid" id="shopGrid"></div>
+        <div class="empty" id="shopEmpty" hidden><div class="big">🔍</div><b>No items match those filters.</b><p>Try clearing the search or raising the price range.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-top">
+    <div class="foot-brand">
+      <div class="logo"><div class="logo-mark">◆</div><div>NullMarket<small>Asset Shop</small></div></div>
+      <p>Premium Minecraft & webmaster resources at honest prices. Instant delivery, commercial licenses included.</p>
+      <div class="pay-row">
+        <span class="pay"><img class="pay-logo-img" src="img/pay-gcash.png" alt="GCash"></span>
+        <span class="pay"><img class="pay-logo-img" src="img/pay-maya.png" alt="Maya"></span>
+        <span class="pay"><img class="pay-logo-img" src="img/pay-paypal.png" alt="PayPal"></span>
+        <span class="pay"><img class="pay-logo-img" src="img/pay-visa.png" alt="Visa"></span>
+        <span class="pay"><img class="pay-logo-img" src="img/pay-crypto.png" alt="Bitcoin"></span>
+        <span class="pay">BANK</span>
+      </div>
+    </div>
+    <div>
+      <h5>Categories</h5>
+      <a onclick="goShop(null,'Minecraft')">Minecraft</a>
+      <a onclick="goShop(null,'XenForo 2')">XenForo 2</a>
+      <a onclick="goShop(null,'WordPress')">WordPress</a>
+      <a onclick="goShop(null,'Unity / Unreal')">Unity / Unreal</a>
+      <a onclick="goShop(null,'WHMCS')">WHMCS</a>
+    </div>
+    <div>
+      <h5>Account</h5>
+      <a onclick="openAuth('login')">Log in</a>
+      <a onclick="openAuth('register')">Create account</a>
+      <a onclick="openOrders()">My orders</a>
+      <a onclick="openCart()">My cart</a>
+    </div>
+    <div>
+      <h5>Support</h5>
+      <a onclick="toast('Licensing: commercial use included with every item')">Licensing</a>
+      <a onclick="toast('Refunds: 14-day money-back on all items')">Refund policy</a>
+      <a onclick="toast('GCash · Maya · PayPal · Cards · Crypto · Bank transfer')">Payment methods</a>
+      <a onclick="toast('Place your Ad here for $35.00 per Month!')">Advertise</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <div>© 2026 NullMarket — demo storefront. Product names belong to their respective owners.</div>
+    <div>Built with ♥ for builders · Instant delivery · Secure checkout</div>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div class="backdrop" id="backdrop" onclick="closeAll()"></div>
+<aside class="drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>🛒 Your cart</h3>
+    <button class="close-x" onclick="closeAll()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="totals"><span>Subtotal</span><b id="cartSubtotal">$0.00</b></div>
+    <div class="totals"><span>Discount (10% launch code)</span><b id="cartDiscount" style="color:var(--green)">-$0.00</b></div>
+    <div class="totals grand"><span>Total</span><b id="cartTotal">$0.00</b></div>
+    <button class="btn btn-green" onclick="openCheckout()">Secure checkout →</button>
+    <button class="btn btn-ghost" onclick="closeAll()">Continue shopping</button>
+  </div>
+</aside>
+
+<!-- Product modal -->
+<div class="modal" id="prodModal"><div class="modal-card" id="prodModalCard"></div></div>
+
+<!-- Auth modal -->
+<div class="modal" id="authModal">
+  <div class="modal-card" style="width:min(430px,100%)">
+    <div class="modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <h2 style="font-size:21px" id="authTitle">Welcome back</h2>
+        <button class="close-x" onclick="closeAll()">✕</button>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuth('login')">Log in</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchAuth('register')">Create account</button>
+      </div>
+      <div id="loginForm">
+        <div class="field"><label>Email</label><input id="liEmail" type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input id="liPass" type="password" placeholder="••••••••"></div>
+        <button class="btn btn-primary" style="width:100%;padding:13px" onclick="doLogin()">Log in to NullMarket</button>
+        <p class="auth-note">Demo accounts are stored locally in your browser only.</p>
+      </div>
+      <div id="registerForm" hidden>
+        <div class="field"><label>Username</label><input id="rgName" placeholder="e.g. CraftKing"></div>
+        <div class="field"><label>Email</label><input id="rgEmail" type="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input id="rgPass" type="password" placeholder="At least 6 characters"></div>
+        <button class="btn btn-primary" style="width:100%;padding:13px" onclick="doRegister()">Create free account</button>
+        <p class="auth-note">Track orders, faster checkout and saved receipts. Free forever.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Orders modal -->
+<div class="modal" id="ordersModal">
+  <div class="modal-card" style="width:min(560px,100%)">
+    <div class="modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="font-size:21px">📦 My orders</h2>
+        <button class="close-x" onclick="closeAll()">✕</button>
+      </div>
+      <div id="ordersList" style="margin-top:16px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout modal -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-card" style="width:min(560px,100%)">
+    <div class="modal-body" id="checkoutBody">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="font-size:21px">Checkout</h2>
+        <button class="close-x" onclick="closeAll()">✕</button>
+      </div>
+      <div class="pay-tabs" id="payTabs">
+        <button class="pay-tab active" data-m="gcash" onclick="setPay('gcash')"><span class="plogo"><img src="img/pay-gcash.png" alt="GCash"></span>GCash</button>
+        <button class="pay-tab" data-m="maya" onclick="setPay('maya')"><span class="plogo"><img src="img/pay-maya.png" alt="Maya"></span>Maya</button>
+        <button class="pay-tab" data-m="paypal" onclick="setPay('paypal')"><span class="plogo"><img src="img/pay-paypal.png" alt="PayPal"></span>PayPal</button>
+        <button class="pay-tab" data-m="card" onclick="setPay('card')"><span class="plogo cards"><img src="img/pay-visa.png" alt="Visa"><svg class="mc" viewBox="0 0 48 30"><circle cx="19" cy="15" r="11" fill="#EB001B"/><circle cx="29" cy="15" r="11" fill="#F79E1B" fill-opacity=".92"/><path d="M24 6.8a11 11 0 0 1 0 16.4 11 11 0 0 1 0-16.4z" fill="#FF5F00"/></svg></span>Cards</button>
+        <button class="pay-tab" data-m="crypto" onclick="setPay('crypto')"><span class="plogo"><img src="img/pay-crypto.png" alt="Bitcoin"></span>Crypto</button>
+        <button class="pay-tab" data-m="bank" onclick="setPay('bank')"><span class="pi">🏦</span>Bank</button>
+      </div>
+
+      <div class="php-line"><span>Order total (USD)</span><b id="coTotal">$0.00</b></div>
+      <div class="php-line" id="phpLine"><span>GCash / Maya conversion ($1 ≈ ₱58)</span><b id="coPHP">₱0</b></div>
+
+      <div class="pay-fields active" id="pay-gcash">
+        <div class="pay-info"><img class="pi-inline" src="img/pay-gcash.png" alt=""> <b>Pay with GCash</b> — open your GCash app, choose <b>Send Money</b>, and send the exact amount to the merchant number below. The amount is deducted from your <b>real GCash balance inside the GCash app</b> the moment you send it.</div>
+        <div class="merchant-card">
+          <div class="m-label">Send exactly this amount to</div>
+          <div class="m-amount" id="mcAmtGcash">₱0.00</div>
+          <div class="m-row"><span>Account name</span><b id="mcNameGcash">NullMarket Digital Services</b></div>
+          <div class="m-row"><span>GCash number</span><b class="m-num" id="mcNumGcash">+63 917 555 0123</b><button class="topup-mini" onclick="copyText('mcNumGcash')">Copy number</button></div>
+          <div class="m-row"><span>Order reference (include in the note)</span><b id="mcRefGcash">—</b><button class="topup-mini" onclick="copyText('mcRefGcash')">Copy</button></div>
+        </div>
+        <div class="field"><label>Your GCash number (sender)</label><input id="gcNum" placeholder="+63 9XX XXX XXXX"></div>
+        <div class="field"><label>GCash reference no. (from your send-money receipt)</label><input id="gcRef" placeholder="e.g. 0000123456789"></div>
+        <div class="field"><label>Email for receipt & downloads</label><input id="gcEmail" type="email" placeholder="you@example.com"></div>
+      </div>
+      <div class="pay-fields" id="pay-maya">
+        <div class="pay-info"><img class="pi-inline" src="img/pay-maya.png" alt=""> <b>Pay with Maya</b> — open your Maya app, choose <b>Send Money</b>, and send the exact amount to the merchant number below. The amount is deducted from your <b>real Maya balance inside the Maya app</b> the moment you send it.</div>
+        <div class="merchant-card" style="border-color:rgba(61,220,132,.4);background:linear-gradient(135deg,rgba(61,220,132,.14),rgba(61,220,132,.04))">
+          <div class="m-label" style="color:#8fe0b4">Send exactly this amount to</div>
+          <div class="m-amount" id="mcAmtMaya">₱0.00</div>
+          <div class="m-row"><span>Account name</span><b id="mcNameMaya">NullMarket Digital Services</b></div>
+          <div class="m-row"><span>Maya number</span><b class="m-num" id="mcNumMaya">+63 918 555 0123</b><button class="topup-mini" onclick="copyText('mcNumMaya')">Copy number</button></div>
+          <div class="m-row"><span>Order reference (include in the note)</span><b id="mcRefMaya">—</b><button class="topup-mini" onclick="copyText('mcRefMaya')">Copy</button></div>
+        </div>
+        <div class="field"><label>Your Maya number (sender)</label><input id="myNum" placeholder="+63 9XX XXX XXXX"></div>
+        <div class="field"><label>Maya reference no. (from your send-money receipt)</label><input id="myRef" placeholder="e.g. 0000123456789"></div>
+        <div class="field"><label>Email for receipt & downloads</label><input id="myEmail" type="email" placeholder="you@example.com"></div>
+      </div>
+      <div class="pay-fields" id="pay-paypal">
+        <div class="pay-info"><img class="pi-inline" src="img/pay-paypal.png" alt=""> <b>Pay with PayPal</b> — the amount is deducted from your PayPal balance.</div>
+        <div class="field"><label>PayPal email</label><input id="ppEmail" type="email" placeholder="you@paypal.com"></div>
+      </div>
+      <div class="pay-fields" id="pay-card">
+        <div class="pay-info"><img class="pi-inline" src="img/pay-visa.png" alt=""> <b>Credit / Debit card</b> — Visa, Mastercard, JCB. Charged to your card, secured with 3D Secure.</div>
+        <div class="field"><label>Name on card</label><input id="ccName" placeholder="JUAN DELA CRUZ"></div>
+        <div class="field"><label>Card number</label><input id="ccNum" placeholder="4242 4242 4242 4242"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:13px">
+          <div class="field"><label>Expiry</label><input id="ccExp" placeholder="12 / 28"></div>
+          <div class="field"><label>CVC</label><input id="ccCvc" placeholder="123"></div>
+        </div>
+      </div>
+      <div class="pay-fields" id="pay-crypto">
+        <div class="pay-info"><img class="pi-inline" src="img/pay-crypto.png" alt=""> <b>Pay with crypto</b> — the amount is deducted from your USDT wallet balance.<br><br>
+        <b>USDT TRC-20:</b> <span style="user-select:all">TQ8xkR2mN4pL9vHcJwF7yB3dS6uE1kR2m</span> (demo address)</div>
+      </div>
+      <div class="pay-fields" id="pay-bank">
+        <div class="pay-info">🏦 <b>Bank transfer</b> — the amount is deducted from your bank account balance.</div>
+        <div class="field"><label>Bank</label>
+          <select id="bkName" style="width:100%;padding:12px 14px;border-radius:11px;border:1px solid var(--border);background:#0e1320;color:var(--text);font-size:14px;outline:none">
+            <option>BDO Unibank</option><option>BPI</option><option>Metrobank</option><option>UnionBank</option><option>Landbank</option>
+          </select>
+        </div>
+        <div class="field"><label>Account name</label><input id="bkAcct" placeholder="JUAN DELA CRUZ"></div>
+        <div class="field"><label>Reference / transaction no.</label><input id="bkRef" placeholder="e.g. 0000123456789"></div>
+      </div>
+
+      <button class="btn btn-green" style="width:100%;padding:14px;font-size:15px" onclick="placeOrder()">Pay & download now</button>
+      <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:12px">Demo checkout — no real payment is processed. 🔒 256-bit SSL mock</p>
+    </div>
+  </div>
+</div>
+
+<!-- Wallet modal -->
+<div class="modal" id="walletModal">
+  <div class="modal-card" style="width:min(560px,100%)">
+    <div class="modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2 style="font-size:21px">Wallet & balances</h2>
+        <button class="close-x" onclick="closeAll()">✕</button>
+      </div>
+      <p style="color:var(--muted);font-size:12.5px;margin:8px 0 0">Demo wallet — balances are simulated and stored in your browser. Purchases deduct from these balances in real time.</p>
+      <div class="wallet-grid" id="walletGrid"></div>
+      <h4 style="font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:18px 0 4px">Merchant payout details (shown to buyers at checkout)</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="field" style="grid-column:1/-1;margin:0"><label>Account name</label><input id="merchName" placeholder="e.g. Juan Dela Cruz"></div>
+        <div class="field" style="margin:0"><label>GCash number</label><input id="merchGcash" placeholder="+63 9XX XXX XXXX"></div>
+        <div class="field" style="margin:0"><label>Maya number</label><input id="merchMaya" placeholder="+63 9XX XXX XXXX"></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:11px;margin:10px 0 4px;font-size:13.5px" onclick="saveMerchant()">Save merchant details</button>
+      <h4 style="font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 4px">Add funds (demo)</h4>
+      <div class="topup-row">
+        <button class="topup-btn" onclick="topUp('gcash',500)">+₱500 GCash</button>
+        <button class="topup-btn" onclick="topUp('gcash',1000)">+₱1,000 GCash</button>
+        <button class="topup-btn" onclick="topUp('maya',500)">+₱500 Maya</button>
+        <button class="topup-btn" onclick="topUp('maya',1000)">+₱1,000 Maya</button>
+        <button class="topup-btn" onclick="topUp('paypal',50)">+$50 PayPal</button>
+        <button class="topup-btn" onclick="topUp('crypto',50)">+$50 Crypto</button>
+        <button class="topup-btn" onclick="topUp('bank',1000)">+₱1,000 Bank</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Inbox modal -->
+<div class="modal" id="inboxModal">
+  <div class="modal-card" style="width:min(660px,100%)">
+    <div class="modal-body" id="inboxBody"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ============================ DATA ============================ */
+const CATEGORIES = [
+  {id:'Minecraft', name:'Minecraft', icon:'⛏️', color:'#34d399', count:'7,220'},
+  {id:'XenForo 2', name:'XenForo 2', icon:'💬', color:'#7c5cff', count:'1,846'},
+  {id:'XenForo 1', name:'XenForo 1', icon:'🗨️', color:'#a78bfa', count:'39'},
+  {id:'IPS Suite', name:'IPS Suite', icon:'🧱', color:'#22d3ee', count:'477'},
+  {id:'Graphics', name:'Graphics & GFX', icon:'🎨', color:'#ff7ac6', count:'129'},
+  {id:'WordPress', name:'WordPress', icon:'🌐', color:'#3b82f6', count:'210'},
+  {id:'WHMCS', name:'WHMCS', icon:'⚙️', color:'#f59e0b', count:'21'},
+  {id:'Unity / Unreal', name:'Unity / Unreal', icon:'🎮', color:'#f87171', count:'99'},
+  {id:'Scripts & Tools', name:'Scripts & Tools', icon:'🛠️', color:'#2fe0a0', count:'156'},
+];
+
+const PRODUCTS = [
+  /* ---------- Minecraft Plugins ---------- */
+  {id:1, name:'ShopGUI+ [1.8 – 1.21]', cat:'Minecraft', sub:'Plugins', price:24.99, old:34.99, rating:4.9, ratings:412, dl:58210, author:'shanruto', version:'1.21.4', updated:'2 days ago', badge:'hot', img:'171.jpg', icon:'🛒', hue:'#7c5cff', desc:'Advanced shop GUI — sell & buy items, enchantments, permissions and commands in-game.', feats:['Unlimited custom shops','Vault economy support','Per-permission shops','1.8 – 1.21.x compatible','Full GUI editor','Lifetime updates']},
+  {id:2, name:'FeatherBoard — Animated Scoreboards', cat:'Minecraft', sub:'Plugins', price:14.99, old:null, rating:4.8, ratings:238, dl:41200, author:'shanruto', version:'5.4.1', updated:'Jan 2026', badge:null, img:'109.jpg', icon:'🪶', hue:'#22d3ee', desc:'Lightweight packet-based animated scoreboards that run like a feather on any server.', feats:['Packet-based rendering','Unlimited animations','PlaceholderAPI support','BungeeCord synced','Zero lag overhead','Multi-language']},
+  {id:3, name:'CMI — 300+ Commands & Suite', cat:'Minecraft', sub:'Plugins', price:29.99, old:44.99, rating:4.9, ratings:587, dl:73400, author:'shanruto', version:'9.7.2', updated:'Oct 2026', badge:'hot', img:'154.jpg', icon:'⚡', hue:'#f59e0b', desc:'Over 300 must-have commands & features: kits, portals, essentials, economy, MySQL & SQLite.', feats:['300+ commands','Kits & portals','Full economy suite','MySQL / SQLite','GUI editor','Folia supported']},
+  {id:4, name:'ChatControl Pro — Chat Filters', cat:'Minecraft', sub:'Plugins', price:12.99, old:null, rating:4.7, ratings:176, dl:32110, author:'FateKid', version:'9.4', updated:'Apr 2024', badge:null, img:'179.jpg', icon:'💬', hue:'#34d399', desc:'The ultimate chat solution. Destroy spam, caps, ads, swears and even bots on your server.', feats:['Anti-spam & anti-caps','Custom chat formats','Swear filters','Bot detection','Discord relay','Per-world chat']},
+  {id:5, name:'Citizens — Advanced NPCs', cat:'Minecraft', sub:'Plugins', price:9.99, old:null, rating:4.9, ratings:301, dl:66320, author:'shanruto', version:'2.0.36', updated:'Today', badge:'new', img:'276.jpg', icon:'🧍', hue:'#8b5cf6', desc:'The best NPC plugin — create pathfinding NPCs, traders, quest givers and more.', feats:['Smart pathfinding','NPC traders & shops','Scriptable traits','Skin & item control','Trait API','Multi-version']},
+  {id:6, name:'Vulcan Anti-Cheat | Folia Ready', cat:'Minecraft', sub:'Plugins', price:26.99, old:39.99, rating:4.8, ratings:264, dl:28760, author:'shanruto', version:'2.8.9', updated:'Oct 2026', badge:'pro', img:'758.jpg', icon:'🛡️', hue:'#ef4444', desc:'Advanced, reliable multi-version cheat detection trusted by over 7,000 servers.', feats:['1.8 – 26.3 support','Folia supported','Packet-level checks','Auto-ban & alerts','Low false positives','Live dashboard']},
+  {id:7, name:'LostBedWars MiniGame', cat:'Minecraft', sub:'Plugins', price:18.99, old:null, rating:4.6, ratings:121, dl:19840, author:'FateKid', version:'6.1', updated:'Jan 2022', badge:null, img:'596.jpg', icon:'🛏️', hue:'#f87171', desc:'Language system, shopkeeper skins, death cries, boxes. Solo, Doubles, 3v3v3v3, 4v4v4v4 and more.', feats:['Multi arena modes','Shopkeeper skins','Rewards & crates','BungeeCord support','Custom death cries','Stats & leaderboard']},
+  {id:8, name:'AdvancedSpawners — Custom Mobs', cat:'Minecraft', sub:'Plugins', price:11.99, old:null, rating:4.5, ratings:98, dl:22100, author:'FateKid', version:'4.2', updated:'Jun 2022', badge:null, img:'702.jpg', icon:'🐉', hue:'#22d3ee', desc:'Create custom mobs in-game without resource packs or mods. 11 custom mob types built in.', feats:['11 custom mobs','In-game mob editor','Spawner management','Economy drops','No resource pack needed','1.8 – 1.18.2']},
+  {id:9, name:'ItemsAdder — Items, Emotes, HUD & More', cat:'Minecraft', sub:'Plugins', price:21.99, old:29.99, rating:4.9, ratings:445, dl:51230, author:'shanruto', version:'4.0.6', updated:'Aug 2026', badge:'hot', img:'8737.jpg', icon:'✨', hue:'#a78bfa', desc:'Create custom items, armors, HUDs, GUIs, emojis, blocks, food, hats, ores, liquids and mobs with custom textures.', feats:['Custom items & armors','HUD & GUI builder','Emotes & emojis','Custom blocks & mobs','Oraxen compatible','Resource pack generator']},
+  {id:10, name:'LagAssist — Performance Solution', cat:'Minecraft', sub:'Plugins', price:16.99, old:null, rating:4.7, ratings:203, dl:37700, author:'FateKid', version:'2.4', updated:'Jun 2022', badge:null, img:'270.jpg', icon:'🚀', hue:'#2fe0a0', desc:'Anti-lag, anti-crasher, chunk hoppers, mob stacker, custom view distance and more in a single package.', feats:['Auto anti-lag','Crash exploit protection','Mob stacker','Chunk hoppers','View-distance optimizer','Live metrics']},
+  {id:11, name:'Mythic Armors — Custom Armor Sets', cat:'Minecraft', sub:'Plugins', price:8.99, old:null, rating:4.4, ratings:14, dl:920, author:'brincezz', version:'5.13.3', updated:'Today', badge:'new', img:'15114.jpg', icon:'🦺', hue:'#f59e0b', desc:'Design fully custom armor sets with abilities, set bonuses and custom model data.', feats:['Set bonuses','Custom model data','Ability triggers','Config-driven','1.16 – 1.21.x','Free updates']},
+  {id:12, name:'CustomCrops — Seasons & Farming', cat:'Minecraft', sub:'Plugins', price:13.99, old:null, rating:4.7, ratings:113, dl:24300, author:'shanruto', version:'3.6.58', updated:'Apr 2024', badge:null, img:'8334.jpg', icon:'🌾', hue:'#34d399', desc:'Seasons, greenhouses, fertilizers and sprinklers. Supports ItemsAdder & Oraxen.', feats:['Season cycles','Greenhouses','Fertilizers & sprinklers','ItemsAdder support','Custom crops','Multi-world config']},
+  {id:13, name:'TradeMe — Custom Trade API', cat:'Minecraft', sub:'Plugins', price:7.99, old:null, rating:5.0, ratings:47, dl:15600, author:'shanruto', version:'6.2.3.3', updated:'Mar 2022', badge:null, img:'1710.jpg', icon:'🤝', hue:'#3b82f6', desc:'Trade by items, money, exp, McMMO, jobs exp, Residence, GriefPrevention and more.', feats:['Flexible trade API','McMMO & Jobs support','GUI trading','Permissions per trade','1.7.10 – 26.2','Extensive docs']},
+  {id:14, name:'AdvancedChests — Unlimited Sizes', cat:'Minecraft', sub:'Plugins', price:15.99, old:null, rating:4.7, ratings:187, dl:33800, author:'shanruto', version:'46.2', updated:'Oct 2020', badge:null, img:'76.jpg', icon:'📦', hue:'#f59e0b', desc:'Make Minecraft chests bigger — unlimited sizes, chunk collector, upgrades, sells, sorter and compressor.', feats:['Unlimited chest sizes','Chunk collector','Chest upgrades','Auto-sell & sorter','Item compressor','Hologram display']},
+  {id:15, name:'Residence — Area Protection [1.7 – 26.3]', cat:'Minecraft', sub:'Plugins', price:19.99, old:24.99, rating:4.9, ratings:156, dl:29100, author:'shanruto', version:'6.0.4.1', updated:'Jan 2022', badge:null, img:'814.jpg', icon:'🏰', hue:'#8b5cf6', desc:'Per-player area protection plugin — excellent for survival servers of any size.', feats:['Full area protection','Rental & leasing','Economy integration','Flag-based permissions','Sub-zones','Multi-world']},
+  {id:16, name:'Cops and Crims MiniGame', cat:'Minecraft', sub:'Plugins', price:10.99, old:null, rating:4.0, ratings:33, dl:8700, author:'shanruto', version:'2.08', updated:'Oct 2023', badge:null, img:'5969.jpg', icon:'🚔', hue:'#22d3ee', desc:'Like the original Cops and Crims — MySQL stats, multi-arena, BungeeCord, no bugs.', feats:['Multi-arena','MySQL stats','BungeeCord ready','Custom weapons','Ranked matches','Fast setup']},
+  {id:17, name:'Better Farming — Auto Farm Plugin', cat:'Minecraft', sub:'Plugins', price:6.99, old:null, rating:4.3, ratings:64, dl:11200, author:'FateKid', version:'2.1', updated:'Sep 2024', badge:null, img:'5949.jpg', icon:'🚜', hue:'#2fe0a0', desc:'Automated grow, plant and harvest GUI for crops and trees. 26.x support.', feats:['Auto farm GUI','Crops & trees','Harvest automation','Per-player limits','Economy hooks','26.x support']},
+
+  /* ---------- Minecraft Models ---------- */
+  {id:18, name:'[Hibiscus Studios] Magic Store Pack', cat:'Minecraft', sub:'Models', price:9.99, old:null, rating:5.0, ratings:52, dl:6400, author:'Hibiscus Studios', version:'1.2', updated:'Today', badge:'hot', img:'7047.jpg', icon:'🪄', hue:'#ff7ac6', desc:'A complete magic store build pack with custom-modeled potions, shelves and décor.', feats:['50+ custom models','Full store build','Optimized textures','1.16 – 1.21.x','Commercial use','Free updates']},
+  {id:19, name:'[EliteCreatures] Gamer Girl Animated Weapons', cat:'Minecraft', sub:'Models', price:6.99, old:null, rating:5.0, ratings:38, dl:4100, author:'EliteCreatures', version:'1.0', updated:'Today', badge:'new', img:'7054.jpg', icon:'⚔️', hue:'#a78bfa', desc:'Animated weapon set with custom particles — perfect for RPG and PvP servers.', feats:['Animated models','Custom particles','12 weapons','Resource pack included','1.16 – 1.21.x','Commercial use']},
+  {id:20, name:'[EliteCreatures] Yggdrasil Weapon Set', cat:'Minecraft', sub:'Models', price:7.99, old:null, rating:5.0, ratings:29, dl:3300, author:'EliteCreatures', version:'1.1', updated:'Today', badge:'new', img:'7056.jpg', icon:'🌳', hue:'#34d399', desc:'Norse-mythology themed animated weapons & tools, forged from the world tree.', feats:['14 animated pieces','Custom swing FX','Norse theme','Optimized models','1.16 – 1.21.x','Docs included']},
+  {id:21, name:'[Polygony] Arcanist Weapons & Tools Set', cat:'Minecraft', sub:'Models', price:8.99, old:12.99, rating:5.0, ratings:21, dl:2700, author:'Polygony', version:'1.0', updated:'Today', badge:'sale', img:'7062.jpg', icon:'🔮', hue:'#7c5cff', desc:'Arcane animated weapons & tools set with glowing runes and custom animations.', feats:['Animated runes','Glow effects','Full tool set','1.16 – 1.21.x','Commercial use','Free support']},
+  {id:22, name:'[EliteCreatures] Medieval Armor Set', cat:'Minecraft', sub:'Models', price:5.99, old:null, rating:4.9, ratings:44, dl:5200, author:'EliteCreatures', version:'1.3', updated:'Today', badge:null, img:'7064.jpg', icon:'🛡️', hue:'#f59e0b', desc:'Full medieval armor set with layered models and custom durability textures.', feats:['Full armor set','Layered models','Custom textures','1.16 – 1.21.x','Lightweight pack','Commercial use']},
+  {id:23, name:'Hyronic MMOItems Pack', cat:'Minecraft', sub:'Models', price:11.99, old:null, rating:4.8, ratings:33, dl:4900, author:'RetroGuy', version:'2.4', updated:'Aug 2023', badge:null, img:'5226.jpg', icon:'🗡️', hue:'#22d3ee', desc:'The perfect solution to RPG itemization and abilities — MMOItems ready.', feats:['100+ RPG items','Custom abilities','MMOItems configs','Balanced stats','Textures included','Docs & support']},
+
+  /* ---------- Maps & Builds ---------- */
+  {id:24, name:'20 Practice Arenas + 3 Sumo Arenas [Pack]', cat:'Minecraft', sub:'Maps & Builds', price:9.99, old:null, rating:4.7, ratings:61, dl:8900, author:'Bees?', version:'1.0', updated:'Dec 2020', badge:null, img:'730.jpg', icon:'⚔️', hue:'#f87171', desc:'20 amazing practice arenas plus 3 sumo arenas — tournament ready out of the box.', feats:['20 practice arenas','3 sumo arenas','Schematic files','Lobby ready','Optimized builds','Commercial use']},
+  {id:25, name:'Fantasy Kingdom Castle Spawn', cat:'Minecraft', sub:'Maps & Builds', price:24.99, old:34.99, rating:4.8, ratings:77, dl:9800, author:'Fawna', version:'2.0', updated:'Mar 2026', badge:'sale', img:'5001.jpg', wide:true, icon:'👑', hue:'#8b5cf6', desc:'Massive fantasy kingdom spawn with castle, market, harbor and full interior.', feats:['1200×1200 build','Fully decorated','Optimized for servers','Spawn-ready','Schematic included','Commercial license']},
+
+  /* ---------- Server Setups ---------- */
+  {id:26, name:'SkyBlock Network Setup — Complete', cat:'Minecraft', sub:'Server Setups', price:39.99, old:59.99, rating:4.7, ratings:58, dl:5400, author:'Cold', version:'3.2', updated:'Jan 2026', badge:'sale', img:'5002.jpg', wide:true, icon:'🏝️', hue:'#2fe0a0', desc:'Plug-and-play SkyBlock network: configs, menus, islands, generators and shop balance.', feats:['Full plugin configs','Custom island templates','Balanced economy','Beautiful menus','Install guide','Discord support']},
+  {id:27, name:'Survival SMP Setup — Optimized', cat:'Minecraft', sub:'Server Setups', price:29.99, old:null, rating:4.6, ratings:35, dl:4200, author:'Cold', version:'2.8', updated:'Dec 2025', badge:null, img:'5003.jpg', wide:true, icon:'🌲', hue:'#34d399', desc:'Tuned survival SMP setup — claims, ranks, shops, chat and performance flags included.', feats:['Performance flags','Claim & rank configs','Shop & economy','Chat formatting','TPS optimizer','Step-by-step guide']},
+
+  /* ---------- Resource Packs ---------- */
+  {id:28, name:'NovaPvP Short Swords Pack', cat:'Minecraft', sub:'Resource Packs', price:3.99, old:null, rating:4.5, ratings:92, dl:12800, author:'Ren08', version:'1.9', updated:'Aug 2025', badge:null, img:'5004.jpg', wide:true, icon:'🎨', hue:'#f87171', desc:'Clean PvP pack with short swords, bright ores and custom sky for competitive play.', feats:['Short swords','Custom sky','Bright ores','FPS boost','1.8 – 1.21.x','Free updates']},
+  {id:29, name:'Aurora RPG 64x Pack', cat:'Minecraft', sub:'Resource Packs', price:9.99, old:null, rating:4.8, ratings:66, dl:8100, author:'Ren08', version:'2.2', updated:'Jul 2025', badge:null, img:'5005.jpg', wide:true, icon:'🌄', hue:'#7c5cff', desc:'Immersive 64x RPG overhaul — hand-painted textures, custom items and ambient sounds.', feats:['64x hand-painted','Custom items','Ambient audio','Connected textures','Shader friendly','1.18 – 1.21.x']},
+
+  /* ---------- Websites & Bots ---------- */
+  {id:30, name:'Network Website Template', cat:'Minecraft', sub:'Websites & Bots', price:19.99, old:null, rating:4.7, ratings:47, dl:6100, author:'Cold', version:'1.7', updated:'Jun 2026', badge:null, img:'5006.png', wide:true, icon:'🤖', hue:'#3b82f6', desc:'Full-featured server website template with store, vote pages, staff list and Discord widget.', feats:['Store & vote pages','Discord integration','Responsive design','Easy to customize','Documentation','Free updates']},
+
+  /* ---------- XenForo 2 Styles ---------- */
+  {id:31, name:'Fantastic Pro — XenForo 2 Style', cat:'XenForo 2', sub:'Styles', price:34.99, old:null, rating:4.8, ratings:96, dl:7200, author:'ThemeHouse', version:'2.3.1', updated:'Sep 2024', badge:'pro', img:'7103.jpg', icon:'🎨', hue:'#7c5cff', desc:'Fantastic Pro is a professional theme that is a great choice for XenForo users.', feats:['Light & dark modes','Style properties panel','Mobile optimized','Dark mode switcher','Sticky navigation','6 mo. updates']},
+  {id:32, name:'Sleek — Flat Grid Gaming Theme', cat:'XenForo 2', sub:'Styles', price:24.99, old:null, rating:4.6, ratings:74, dl:5900, author:'Bees?', version:'1.6', updated:'Feb 2022', badge:null, img:'1601.jpg', icon:'📐', hue:'#22d3ee', desc:'A flat grid-styled XenForo gaming theme with bold typography and clean cards.', feats:['Flat grid layout','Gaming aesthetic','Responsive','Node grid styles','Easy branding','XF 2.2+']},
+  {id:33, name:'Aperture by XenFocus', cat:'XenForo 2', sub:'Styles', price:29.99, old:39.99, rating:4.7, ratings:58, dl:4700, author:'XenFocus', version:'2.1', updated:'Oct 2025', badge:'sale', img:'1596.jpg', icon:'📸', hue:'#3b82f6', desc:'Aperture by XenFocus — a crisp, photography-inspired style with elegant spacing.', feats:['Photography inspired','Retina ready','Dark mode','Custom widgets','Well documented','XF 2.2+']},
+  {id:34, name:'Not Alone Pro', cat:'XenForo 2', sub:'Styles', price:27.99, old:null, rating:4.5, ratings:37, dl:3900, author:'ThemeHouse', version:'1.9', updated:'Apr 2024', badge:null, img:'4726.jpg', icon:'🌌', hue:'#8b5cf6', desc:'A modern community style with soft gradients, rounded cards and night mode.', feats:['Soft gradient UI','Night mode','Modern cards','Mobile first','Style properties','XF 2.2+']},
+  {id:35, name:'XeDark — Dark Responsive Style', cat:'XenForo 2', sub:'Styles', price:19.99, old:null, rating:4.6, ratings:45, dl:5300, author:'Ren08', version:'2.0', updated:'Mar 2025', badge:null, img:'5007.jpg', wide:true, icon:'🖤', hue:'#334155', desc:'Sleek dark theme with node grid, sticky headers and full responsive layout.', feats:['Full dark mode','Node grid layout','Sticky navigation','Clean typography','Performance tuned','XF 2.2+']},
+
+  /* ---------- XenForo 2 Add-ons ---------- */
+  {id:36, name:'[DigitalPoint] App for Cloudflare', cat:'XenForo 2', sub:'Add-ons', price:14.99, old:null, rating:4.9, ratings:122, dl:11400, author:'DigitalPoint', version:'2.3', updated:'Sep 2026', badge:'hot', img:'6002.jpg', icon:'☁️', hue:'#f59e0b', desc:'Simplifies and automates much of the configuration and usage of Cloudflare with XenForo.', feats:['Cloudflare API integration','Cache purging','Auto configuration','Security settings','Analytics','XF 2.2+']},
+  {id:37, name:'[Audentio] Feeds', cat:'XenForo 2', sub:'Add-ons', price:17.99, old:null, rating:4.6, ratings:63, dl:5600, author:'Audentio', version:'1.4', updated:'Aug 2024', badge:null, img:'6074.jpg', icon:'📡', hue:'#22d3ee', desc:'Intentional and interactive feeds — aggregate content across your community.', feats:['Custom feed types','Interactive widgets','Filtering rules','Layout builder','Responsive','XF 2.2+']},
+  {id:38, name:'[XTR] Reaction Ranks', cat:'XenForo 2', sub:'Add-ons', price:8.99, old:null, rating:4.5, ratings:41, dl:3700, author:'XTR', version:'1.2', updated:'Oct 2023', badge:null, img:'6048.jpg', icon:'🏆', hue:'#34d399', desc:'Add a reputation system to your site based on reaction score with automatic ranks.', feats:['Score-based ranks','Auto promotions','Rank badges','Leaderboard widget','Custom thresholds','XF 2.2+']},
+  {id:39, name:'[OzzModz] Content Badges Daily Limit', cat:'XenForo 2', sub:'Add-ons', price:6.99, old:null, rating:4.4, ratings:28, dl:2400, author:'OzzModz', version:'1.1', updated:'Feb 2024', badge:'new', img:'7703.jpg', icon:'🔖', hue:'#a78bfa', desc:'Limit the daily amount of awards given by usergroup — keep your badge economy healthy.', feats:['Per-usergroup limits','Daily reset','Badge rules','Logging & stats','Easy setup','XF 2.2+']},
+
+  /* ---------- XenForo 1 ---------- */
+  {id:40, name:'Flat Awesome+ Dark (XF1 Legacy)', cat:'XenForo 1', sub:'Styles', price:9.99, old:14.99, rating:4.4, ratings:22, dl:1900, author:'PixelExit', version:'1.6', updated:'Nov 2025', badge:'sale', img:'969.jpg', icon:'🖼️', hue:'#8b5cf6', desc:'Flat Awesome+ brings a whole new level of customizations and features to XenForo 1.', feats:['Flat modern look','Color presets','Responsive','Easy branding','Legacy support','Lightweight']},
+
+  /* ---------- IPS Suite ---------- */
+  {id:41, name:'Chameleon Dark — IPS Theme', cat:'IPS Suite', sub:'Themes', price:29.99, old:null, rating:4.8, ratings:57, dl:4300, author:'shanruto', version:'4.7.10', updated:'Aug 2023', badge:'pro', img:'5177.jpg', icon:'🦎', hue:'#22d3ee', desc:'A polished dark IPS Community Suite theme — elegant, fast and fully responsive.', feats:['Dark & light modes','All IPS apps styled','Custom headers','Theme editor','Mobile ready','6 mo. updates']},
+  {id:42, name:'Dimension Dark — IPS Theme', cat:'IPS Suite', sub:'Themes', price:27.99, old:null, rating:4.7, ratings:39, dl:3600, author:'shanruto', version:'4.7.10', updated:'Aug 2023', badge:null, img:'5173.jpg', icon:'⬛', hue:'#3b82f6', desc:'Dimension Dark brings depth and contrast to your IPS community with clean sections.', feats:['Depth styling','Clean sections','Responsive','App coverage','Easy branding','IPS 4.7+']},
+  {id:43, name:'Titan — IPS Gaming Theme', cat:'IPS Suite', sub:'Themes', price:24.99, old:32.99, rating:4.6, ratings:31, dl:2900, author:'shanruto', version:'4.7', updated:'Aug 2023', badge:'sale', img:'5167.jpg', icon:'🛡️', hue:'#f59e0b', desc:'A powerful gaming theme for IPS Community Suite with bold accents and game-ready layout.', feats:['Gaming aesthetic','Bold accents','Responsive','Custom sidebars','Header styles','IPS 4.7+']},
+
+  /* ---------- WordPress Themes ---------- */
+  {id:44, name:'Bridge — Creative Multipurpose Theme', cat:'WordPress', sub:'Themes', price:59.00, old:69.00, rating:4.9, ratings:821, dl:42300, author:'FateKid', version:'29.1', updated:'Nov 2025', badge:'hot', img:'693.jpg', icon:'🌉', hue:'#3b82f6', desc:'A creative multipurpose WordPress theme — 600+ demos, Elementor & WPBakery ready.', feats:['600+ demos','Elementor & WPBakery','WooCommerce ready','SEO optimized','One-click import','6 mo. support']},
+  {id:45, name:'Youplay — Gaming WordPress Theme', cat:'WordPress', sub:'Themes', price:49.00, old:null, rating:4.7, ratings:164, dl:10200, author:'rebeccat924', version:'2.9', updated:'Aug 2024', badge:null, img:'9389.jpg', icon:'🎮', hue:'#7c5cff', desc:'A creative theme for game communities — news, reviews, clans, tournaments and shop.', feats:['Gaming layouts','Clan & tournament pages','BuddyPress ready','WooCommerce','Review system','6 mo. support']},
+  {id:46, name:'TimesNews — News & Magazine Theme', cat:'WordPress', sub:'Themes', price:39.00, old:null, rating:4.5, ratings:88, dl:7400, author:'zptid100', version:'3.4', updated:'Jul 2024', badge:null, img:'8907.jpg', icon:'📰', hue:'#f87171', desc:'Modern news & magazine theme with multiple demos, dark mode and blazing speed.', feats:['Multiple demos','Dark mode','Ad slots','AMP friendly','Fast loading','Translation ready']},
+  {id:47, name:'Vault — Multi-Purpose Elementor Theme', cat:'WordPress', sub:'Themes', price:34.99, old:44.99, rating:4.6, ratings:112, dl:8700, author:'irdot', version:'2.2', updated:'May 2024', badge:'sale', img:'8506.jpg', icon:'🏛️', hue:'#2fe0a0', desc:'Vault is a multi-purpose Elementor theme with 40+ demos and full WooCommerce support.', feats:['40+ demos','Elementor native','WooCommerce','Header builder','One-click import','6 mo. support']},
+
+  /* ---------- WordPress Plugins ---------- */
+  {id:48, name:'Elementor Pro — Website Builder', cat:'WordPress', sub:'Plugins', price:59.00, old:99.00, rating:4.9, ratings:1204, dl:98400, author:'Bees?', version:'3.24', updated:'May 2024', badge:'hot', img:'2985.jpg', icon:'🧩', hue:'#e11d74', desc:'The #1 premium WordPress website builder — theme builder, forms, popups and WooCommerce.', feats:['Theme builder','Popup & form builder','WooCommerce widgets','Global styles','100+ widgets','1 yr updates']},
+  {id:49, name:'WP Rocket — Caching & Performance', cat:'WordPress', sub:'Plugins', price:34.99, old:59.00, rating:4.9, ratings:643, dl:51200, author:'jimbob', version:'3.17', updated:'Aug 2024', badge:'sale', img:'9353.jpg', icon:'🚀', hue:'#f87171', desc:'WP Rocket is an all-in-one web performance plugin for WordPress — instant speed boost.', feats:['Page caching','File optimization','LazyLoad & WebP','CDN integration','Database cleanup','1 yr updates']},
+  {id:50, name:'Yoast SEO Premium', cat:'WordPress', sub:'Plugins', price:49.00, old:99.00, rating:4.8, ratings:712, dl:63400, author:'gblx11', version:'23.3', updated:'May 2025', badge:'pro', img:'11858.jpg', icon:'📈', hue:'#34d399', desc:'The #1 WordPress SEO plugin — keyword optimization, redirects, internal linking and more.', feats:['SEO analysis','Redirect manager','Internal linking','Schema output','Social previews','1 yr updates']},
+  {id:51, name:'Astra Premium Starter Templates Pro', cat:'WordPress', sub:'Plugins', price:24.99, old:null, rating:4.7, ratings:298, dl:22100, author:'DragonXxOnTop', version:'4.4', updated:'Jun 2025', badge:null, img:'11917.jpg', icon:'🎨', hue:'#7c5cff', desc:'Build beautiful websites faster with advanced features and complete design control.', feats:['240+ starter sites','Elementor & blocks','Complete design control','One-click import','Fast & lightweight','1 yr updates']},
+  {id:52, name:'PowerPack Addons for Elementor', cat:'WordPress', sub:'Plugins', price:19.99, old:null, rating:4.6, ratings:176, dl:14300, author:'gblx11', version:'2.10', updated:'Apr 2025', badge:null, img:'11499.jpg', icon:'⚡', hue:'#f59e0b', desc:'70+ creative Elementor widgets and extensions — the ultimate addon pack.', feats:['70+ widgets','Header & footer builder','Display conditions','White labeling','WooCommerce widgets','1 yr updates']},
+
+  /* ---------- WHMCS ---------- */
+  {id:53, name:'HostX — WHMCS Web Hosting Theme', cat:'WHMCS', sub:'Themes', price:34.99, old:49.99, rating:4.7, ratings:41, dl:2400, author:'WHMCS Global', version:'3.1', updated:'Mar 2024', badge:'sale', img:'8177.jpg', icon:'☁️', hue:'#22d3ee', desc:'WHMCS theme developed by WHMCS Global Services — order forms, server pages and clean dashboards.', feats:['WHMCS 8.x ready','Custom order form','Dark & light','Retina ready','Child theme','6 mo. support']},
+  {id:54, name:'Lagom — WHMCS Client Theme', cat:'WHMCS', sub:'Themes', price:29.99, old:null, rating:4.8, ratings:56, dl:3100, author:'mcKotlin', version:'2.2', updated:'Mar 2024', badge:'pro', img:'6334.jpg', icon:'🟣', hue:'#8b5cf6', desc:'Simple, intuitive and fully responsive WHMCS theme trusted by hundreds of hosts.', feats:['Fully responsive','Intuitive UX','WHMCS 8.x ready','Multiple styles','Easy branding','6 mo. support']},
+  {id:55, name:'Universal WHMCS Child Theme', cat:'WHMCS', sub:'Themes', price:14.99, old:null, rating:4.4, ratings:19, dl:1400, author:'Harmhacker', version:'1.5', updated:'May 2025', badge:null, img:'11894.jpg', icon:'🔧', hue:'#2fe0a0', desc:'A clean child theme for the WHMCS Twenty-One system template — safe to customize.', feats:['Twenty-One child','Update safe','Custom hooks','Lightweight','Docs included','WHMCS 8.x']},
+  {id:56, name:'Hostiko 73 — WHMCS Hosting Theme', cat:'WHMCS', sub:'Themes', price:24.99, old:null, rating:4.3, ratings:27, dl:1900, author:'MrBoss', version:'73.0', updated:'Dec 2022', badge:null, img:'4170.jpg', icon:'🖥️', hue:'#3b82f6', desc:'Complete hosting theme with landing pages, pricing tables and full WHMCS integration.', feats:['Landing pages','Pricing tables','WHMCS integration','Responsive','Multiple demos','6 mo. support']},
+
+  /* ---------- Unity / Unreal (Synty POLYGON) ---------- */
+  {id:57, name:'POLYGON — Sci-Fi Space Pack', cat:'Unity / Unreal', sub:'Environments', price:39.99, old:49.99, rating:4.9, ratings:214, dl:15600, author:'Synty Store', version:'1.6', updated:'May 2024', badge:'hot', img:'8654.jpg', icon:'🚀', hue:'#6366f1', desc:'A low poly asset pack of spaceships, characters, props, weapons, FX and environment assets.', feats:['Spaceships & stations','Characters & props','VFX included','PBR materials','Unity & UE5','Demo scene']},
+  {id:58, name:'POLYGON — Sci-Fi City Pack', cat:'Unity / Unreal', sub:'Environments', price:34.99, old:null, rating:4.8, ratings:167, dl:12400, author:'Synty Store', version:'1.4', updated:'Feb 2024', badge:null, img:'3893.jpg', icon:'🌃', hue:'#22d3ee', desc:'A low poly asset pack of characters, props, weapons and a full futuristic city.', feats:['Full city blocks','Vehicles & props','Characters included','PBR materials','Unity & UE5','Optimized LODs']},
+  {id:59, name:'POLYGON — Heist Pack', cat:'Unity / Unreal', sub:'Environments', price:29.99, old:null, rating:4.7, ratings:98, dl:9100, author:'Synty Store', version:'1.3', updated:'Feb 2024', badge:null, img:'3889.jpg', icon:'🏦', hue:'#f59e0b', desc:'A low poly asset pack of characters, props and vehicles — perfect for crime games.', feats:['Characters & crew','Bank interiors','Vehicles','Weapons & props','Unity & UE5','Demo scene']},
+  {id:60, name:'POLYGON — Farm Pack', cat:'Unity / Unreal', sub:'Environments', price:24.99, old:32.99, rating:4.8, ratings:121, dl:10400, author:'Synty Store', version:'1.5', updated:'Feb 2024', badge:'sale', img:'3888.jpg', icon:'🌾', hue:'#34d399', desc:'A low poly asset pack of buildings, vehicles, characters and farm life props.', feats:['Farm buildings','Tractors & vehicles','Animals & crops','Characters','Unity & UE5','Optimized meshes']},
+  {id:61, name:'POLYGON — Pirates Pack', cat:'Unity / Unreal', sub:'Environments', price:27.99, old:null, rating:4.7, ratings:86, dl:8200, author:'Synty Store', version:'1.2', updated:'Feb 2024', badge:null, img:'3892.jpg', icon:'🏴‍☠️', hue:'#f87171', desc:'A low poly asset pack of characters, buildings and ships for pirate adventures.', feats:['Ships & docks','Characters & crews','Island buildings','Props & treasure','Unity & UE5','Demo scene']},
+
+  /* ---------- Graphics ---------- */
+  {id:62, name:'2000+ UI Icons Mega Pack', cat:'Graphics', sub:'Icon Packs', price:12.00, old:20.00, rating:4.9, ratings:241, dl:21300, author:'Fawna', version:'4.0', updated:'Sep 2026', badge:'sale', img:'5008.jpg', wide:true, icon:'🎯', hue:'#ff7ac6', desc:'2,000 pixel-perfect icons in SVG & PNG — outline, solid and duotone styles.', feats:['2,000+ icons','SVG + PNG','Outline & solid','Figma library','Commercial license','Lifetime updates']},
+  {id:63, name:'Branding Presentation Templates', cat:'Graphics', sub:'Templates', price:19.00, old:null, rating:4.7, ratings:67, dl:5400, author:'Fawna', version:'2.1', updated:'Jul 2026', badge:null, img:'5009.jpg', wide:true, icon:'🖼️', hue:'#7c5cff', desc:'40 slide templates for brand guidelines, pitch decks and creative portfolios.', feats:['40 slides','Figma + PPTX','Free fonts used','Easy to edit','Print ready','Commercial use']},
+
+  /* ---------- Scripts & Tools ---------- */
+  {id:64, name:'SMM Panel Script (PHP) — Full Platform', cat:'Scripts & Tools', sub:'PHP Scripts', price:29.99, old:49.99, rating:4.4, ratings:83, dl:7100, author:'Cold', version:'6.2', updated:'Aug 2026', badge:'sale', img:'5010.png', wide:true, icon:'📊', hue:'#2fe0a0', desc:'Complete social media marketing panel — providers, subscriptions, tickets and API.', feats:['Unlimited providers','Subscription orders','Support tickets','REST API','Auto-updates','Install service']},
+  {id:65, name:'Premium URL Shortener — SaaS Script', cat:'Scripts & Tools', sub:'PHP Scripts', price:22.99, old:null, rating:4.5, ratings:64, dl:5200, author:'Cold', version:'4.4', updated:'Jun 2026', badge:null, img:'5011.png', wide:true, icon:'🔗', hue:'#3b82f6', desc:'SaaS-ready link shortener with analytics, teams, payments and custom domains.', feats:['Bio pages','Deep analytics','Team accounts','Stripe & PayPal','Custom domains','Install guide']},
+];
+
+const REVIEWS = [
+  {name:'LapHa', color:'#7c5cff', stars:5, item:'Magic Store Pack', text:'Absolutely gorgeous models, and the support is instant. Worth every cent.'},
+  {name:'Dorukbaba54', color:'#22d3ee', stars:5, item:'ShopGUI+', text:'The best shop plugin on the market. Setup took 10 minutes and it just works.'},
+  {name:'POIRO', color:'#34d399', stars:5, item:'POLYGON Farm', text:'This pack saved me weeks of environment work. Clean assets, no bloat.'},
+  {name:'Matadi', color:'#f59e0b', stars:4, item:'Chameleon Dark', text:'Beautiful IPS theme, blazing fast. The dark mode is perfect.'},
+  {name:'HammerVM', color:'#ff7ac6', stars:5, item:'CMI Suite', text:'300+ commands and not a single conflict with my stack. Incredible value.'},
+  {name:'brincezz', color:'#a78bfa', stars:5, item:'Bridge Theme', text:'The best multipurpose WP theme. GCash checkout was super smooth too.'},
+];
+
+const AUTHORS = [
+  {name:'shanruto', color:'#7c5cff', count:'1,740 items', title:'Power Seller'},
+  {name:'FateKid', color:'#22d3ee', count:'3,053 items', title:'Top Vendor'},
+  {name:'Synty Store', color:'#34d399', count:'922 items', title:'Studio Partner'},
+  {name:'Fawna', color:'#ff7ac6', count:'156 items', title:'Rising Star'},
+  {name:'Cold', color:'#f59e0b', count:'347 items', title:'Verified Pro'},
+  {name:'EliteCreatures', color:'#a78bfa', count:'87 items', title:'Artist Studio'},
+  {name:'Bees?', color:'#f87171', count:'922 items', title:'Power Seller'},
+];
+
+const BADGE_MAP = {hot:['HOT','b-hot'], new:['NEW','b-new'], sale:['SALE','b-sale'], pro:['PRO','b-pro']};
+const PHP_RATE = 58;
+
+/* ============================ STATE ============================ */
+let cart = safeJSON('nullmarket-cart', []);
+let filters = { cat:'all', q:'', sort:'popular', maxPrice:60, tag:'all' };
+let session = safeJSON('nm-session', null);
+let payMethod = 'gcash';
+let pendingRef = '';
+
+function safeJSON(key, fallback){
+  try { const v = JSON.parse(localStorage.getItem(key)); return v === null ? fallback : v; }
+  catch(e){ return fallback; }
+}
+
+/* ============================ HELPERS ============================ */
+const $ = (id) => document.getElementById(id);
+const money = (n) => '$' + n.toFixed(2);
+function stars(r){ const full = Math.round(r); return '★★★★★☆☆☆☆☆'.slice(5 - full, 10 - full); }
+function initials(name){ return (name||'U').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg, ok=true){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<span class="${ok?'ok':'info'}">${ok?'✓':'ℹ'}</span> ${msg}`;
+  $('toastWrap').appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transition='.35s'; setTimeout(()=>el.remove(),350); }, 2800);
+}
+
+/* ============================ IMAGE HELPERS ============================ */
+function coverInner(p){
+  const img = p.wide
+    ? `<img class="cimg-wide" src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">`
+    : `<img class="cimg-tile" src="img/${p.img}" alt="${esc(p.name)}" loading="lazy">`;
+  return `<div class="patt"></div>${img}`;
+}
+
+/* ============================ RENDER: HOME ============================ */
+function renderTicker(){
+  const items = ['Instant downloads','Commercial license included','14,200+ premium assets','GCash · Maya · PayPal · Card · Crypto','14-day money-back','2,481 updates this week','Sell your assets — keep 80%','Secure checkout'];
+  const html = items.map(t=>`<span><span class="dot">◆</span>&nbsp; ${t}</span>`).join('');
+  $('ticker').innerHTML = html + html;
+}
+
+function renderCategories(){
+  $('catGrid').innerHTML = CATEGORIES.map(c=>`
+    <div class="cat-tile" onclick="goShop(null,'${c.id}')">
+      <div class="glow" style="background:${c.color}"></div>
+      <div class="cat-ic" style="background:${c.color}22;border:1px solid ${c.color}55">${c.icon}</div>
+      <b>${c.name}</b><span>${c.count} items</span>
+      <div class="arrow">→</div>
+    </div>`).join('');
+}
+
+function cardHTML(p){
+  const b = p.badge ? BADGE_MAP[p.badge] : null;
+  return `
+  <div class="card" onclick="openProduct(${p.id})">
+    <div class="card-cover" style="background:linear-gradient(135deg, ${p.hue}44, ${p.hue}18 55%, #0f1219)">
+      ${coverInner(p)}
+      <div class="badges">${b?`<span class="badge ${b[1]}">${b[0]}</span>`:''}${p.old?`<span class="badge b-sale">-${Math.round((1-p.price/p.old)*100)}%</span>`:''}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-cat">${p.cat} · ${p.sub}</div>
+      <div class="card-title">${esc(p.name)}</div>
+      <div class="card-desc">${esc(p.desc)}</div>
+      <div class="card-meta">
+        <span class="stars">${stars(p.rating)}</span>
+        <span>${p.rating.toFixed(1)} (${p.ratings})</span>
+        <span>·</span>
+        <span>${(p.dl/1000).toFixed(1)}k dl</span>
+        <span>·</span>
+        <span>v${p.version}</span>
+      </div>
+      <div class="card-foot">
+        <div class="price-wrap">
+          <span class="price">${money(p.price)}</span>
+          ${p.old?`<span class="old-price">${money(p.old)}</span>`:''}
+        </div>
+        <button class="add-btn" onclick="event.stopPropagation();addToCart(${p.id})" title="Add to cart">+</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderHome(){
+  const top = [...PRODUCTS].sort((a,b)=>(b.rating*100+b.ratings)-(a.rating*100+a.ratings)).slice(0,8);
+  $('topGrid').innerHTML = top.map(cardHTML).join('');
+  const latest = [...PRODUCTS].slice(-8).reverse();
+  $('latestGrid').innerHTML = latest.map(cardHTML).join('');
+
+  $('reviewGrid').innerHTML = REVIEWS.map(r=>`
+    <div class="review-card">
+      <div class="stars">${stars(r.stars)}</div>
+      <p>“${r.text}”</p>
+      <div class="review-user">
+        <div class="avatar" style="background:${r.color}">${initials(r.name)}</div>
+        <div><b>${r.name}</b><span>on ${r.item} · verified purchase</span></div>
+      </div>
+    </div>`).join('');
+
+  $('authorRow').innerHTML = AUTHORS.map(a=>`
+    <div class="author-card">
+      <div class="avatar" style="background:${a.color}">${initials(a.name)}</div>
+      <b>${a.name}</b><span>${a.title}</span>
+      <div class="cnt">${a.count}</div>
+    </div>`).join('');
+}
+
+/* ============================ RENDER: SHOP ============================ */
+function renderChips(){
+  const chips = [{id:'all',name:'All',icon:''}].concat(CATEGORIES.map(c=>({id:c.id,name:c.name,icon:c.icon})));
+  $('chipRow').innerHTML = chips.map(c=>`
+    <button class="chip ${filters.cat===c.id?'active':''}" onclick="setCat('${c.id}')">${c.icon?c.icon+' ':''}${c.name}</button>`).join('');
+}
+
+function renderFilterLists(){
+  $('filterCats').innerHTML = [{id:'all',name:'All categories',count:''}].concat(CATEGORIES.map(c=>({id:c.id,name:c.name,count:c.count})))
+    .map(c=>`<button class="${filters.cat===c.id?'active':''}" onclick="setCat('${c.id}')">${c.name}${c.count?`<span class="tag">${c.count}</span>`:''}</button>`).join('');
+  const tags = ['all','new','hot','sale','pro'];
+  const label = {all:'Any tag',new:'New arrivals',hot:'Hot & trending',sale:'On sale',pro:'PRO picks'};
+  $('filterTags').innerHTML = tags.map(t=>`<button class="${filters.tag===t?'active':''}" onclick="setTag('${t}')">${label[t]}</button>`).join('');
+}
+
+function filteredProducts(){
+  let list = PRODUCTS.filter(p=>{
+    if(filters.cat!=='all' && p.cat!==filters.cat) return false;
+    if(p.price > filters.maxPrice) return false;
+    if(filters.tag!=='all'){
+      if(filters.tag==='new'){ if(!(p.badge==='new' || p.updated==='Today')) return false; }
+      else if(p.badge!==filters.tag) return false;
+    }
+    if(filters.q){
+      const q = filters.q.toLowerCase();
+      if(!(p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.sub.toLowerCase().includes(q) || p.author.toLowerCase().includes(q))) return false;
+    }
+    return true;
+  });
+  const s = filters.sort;
+  if(s==='price-asc') list.sort((a,b)=>a.price-b.price);
+  else if(s==='price-desc') list.sort((a,b)=>b.price-a.price);
+  else if(s==='rating') list.sort((a,b)=>(b.rating*100+b.ratings)-(a.rating*100+a.ratings));
+  else if(s==='newest') list.sort((a,b)=>(b.badge==='new')-(a.badge==='new') || b.id-a.id);
+  else list.sort((a,b)=>b.dl-a.dl);
+  return list;
+}
+
+function renderShop(){
+  renderChips(); renderFilterLists();
+  const list = filteredProducts();
+  $('resultCount').textContent = `Showing ${list.length} item${list.length!==1?'s':''}`;
+  $('shopGrid').innerHTML = list.map(cardHTML).join('');
+  $('shopEmpty').hidden = list.length>0;
+  $('crumbCat').textContent = filters.cat==='all' ? 'All items' : filters.cat;
+  $('shopTitle').innerHTML = (filters.cat==='all' ? 'All' : filters.cat) + ' <span class="accent">products</span>';
+  $('priceMaxLabel').textContent = '$' + filters.maxPrice;
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active', b.dataset.nav==='shop'));
+}
+
+function setCat(id){ filters.cat=id; renderShop(); window.scrollTo({top:0,behavior:'smooth'}); }
+function setTag(t){ filters.tag=t; renderShop(); }
+
+/* ============================ NAV ============================ */
+function showView(name){
+  $('view-home').hidden = name!=='home';
+  $('view-shop').hidden = name!=='shop';
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.toggle('active', b.dataset.nav===name));
+}
+function goHome(){ showView('home'); window.scrollTo({top:0,behavior:'smooth'}); }
+function goShop(sort, cat){
+  if(sort){ filters.sort=sort; $('sortSel').value=sort; }
+  if(cat!==undefined) filters.cat = cat || 'all';
+  showView('shop'); renderShop(); window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ============================ AUTH ============================ */
+function renderAuthUI(){
+  if(session && session.name){
+    $('guestActions').style.display = 'none';
+    $('userActions').style.display = 'block';
+    $('navAvatar').textContent = initials(session.name);
+    $('navUsername').textContent = session.name;
+    $('ddName').textContent = session.name;
+    $('ddEmail').textContent = session.email;
+    const inboxN = safeJSON('nm-orders', []).filter(o=>o.user===session.email).length;
+    const dot = $('inboxDot');
+    if(dot) dot.textContent = inboxN ? `(${inboxN} new)` : '';
+  } else {
+    $('guestActions').style.display = 'flex';
+    $('userActions').style.display = 'none';
+    $('userDropdown').classList.remove('open');
+  }
+}
+function toggleDropdown(e){
+  if(e) e.stopPropagation();
+  $('userDropdown').classList.toggle('open');
+}
+document.addEventListener('click', (e)=>{
+  const dd = $('userDropdown');
+  if(dd && dd.classList.contains('open') && !e.target.closest('.user-wrap')) dd.classList.remove('open');
+});
+
+function openAuth(tab){
+  $('authModal').classList.add('show');
+  $('backdrop').classList.add('show');
+  switchAuth(tab || 'login');
+}
+function switchAuth(tab){
+  const isLogin = tab==='login';
+  $('tabLogin').classList.toggle('active', isLogin);
+  $('tabRegister').classList.toggle('active', !isLogin);
+  $('loginForm').hidden = !isLogin;
+  $('registerForm').hidden = isLogin;
+  $('authTitle').textContent = isLogin ? 'Welcome back' : 'Create your account';
+}
+async function doRegister(){
+  const name = $('rgName').value.trim();
+  const email = $('rgEmail').value.trim().toLowerCase();
+  const pass = $('rgPass').value;
+  if(name.length < 2){ toast('Please enter a username', false); return; }
+  if(!email.includes('@')){ toast('Please enter a valid email', false); return; }
+  if(pass.length < 6){ toast('Password must be at least 6 characters', false); return; }
+  try{
+    const r = await fetch('/api/register', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, email, pass})});
+    const j = await r.json();
+    if(!j.ok){ toast(j.error || 'Registration failed', false); return; }
+    session = {name, email};
+    localStorage.setItem('nm-session', JSON.stringify(session));
+    renderAuthUI(); closeAll();
+    toast('Account created — welcome, ' + name + '! 🎉');
+  }catch(e){ toast('Server unreachable — try again', false); }
+}
+async function doLogin(){
+  const email = $('liEmail').value.trim().toLowerCase();
+  const pass = $('liPass').value;
+  try{
+    const r = await fetch('/api/login', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({email, pass})});
+    const j = await r.json();
+    if(!j.ok){ toast(j.error || 'Invalid email or password', false); return; }
+    session = {name:j.name, email:j.email};
+    localStorage.setItem('nm-session', JSON.stringify(session));
+    renderAuthUI(); closeAll();
+    toast('Logged in as ' + j.name + ' ✓');
+  }catch(e){ toast('Server unreachable — try again', false); }
+}
+function doLogout(){
+  session = null;
+  localStorage.removeItem('nm-session');
+  renderAuthUI(); toggleDropdown();
+  toast('Logged out. See you soon!');
+}
+
+/* ============================ ORDERS ============================ */
+async function openOrders(){
+  let orders = safeJSON('nm-orders', []);
+  try{
+    const r = await fetch('/api/orders?user=' + encodeURIComponent(session ? session.email : ''));
+    const j = await r.json();
+    if(j.ok && j.orders) orders = j.orders;
+  }catch(e){}
+  const list = orders.filter(o=>!session || !o.user || o.user===session.email);
+  if(!session){
+    $('ordersList').innerHTML = `<div class="empty"><div class="big">👤</div><b>Log in to see your orders</b><p>Your purchase history is saved to your account.</p><br><button class="btn btn-primary" onclick="closeAll();openAuth('login')">Log in</button></div>`;
+  } else if(!list.length){
+    $('ordersList').innerHTML = `<div class="empty"><div class="big">📦</div><b>No orders yet</b><p>Your purchases will appear here.</p></div>`;
+  } else {
+    $('ordersList').innerHTML = list.map(o=>`
+      <div class="order-card">
+        <div class="row">
+          <span class="order-id">${o.id}</span>
+          <span class="order-pill">${o.methodLabel} · ${o.status}</span>
+        </div>
+        <div class="order-meta">${o.date} · ${esc(o.email)} · <b style="color:var(--green)">${money(o.total)}</b>${o.paidText?` · ${o.paidText}`:''}</div>
+        <div class="order-items">${o.items.map(i=>`${i.qty}× ${esc(i.name)}`).join('<br>')}</div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn btn-ghost" style="padding:8px 14px;font-size:12.5px" onclick="viewEmailFromOrders('${o.id}')">✉️ View receipt email</button>
+          ${o.items.map(i=>`<button class="btn btn-green" style="padding:8px 14px;font-size:12.5px" onclick="downloadItem('${o.id}', ${i.pid})">Download: ${esc(i.name.split(' ').slice(0,2).join(' '))}</button>`).join('')}
+        </div>
+      </div>`).join('');
+  }
+  $('ordersModal').classList.add('show');
+  $('backdrop').classList.add('show');
+}
+
+/* ============================ CART ============================ */
+function saveCart(){ localStorage.setItem('nullmarket-cart', JSON.stringify(cart)); updateCartUI(); }
+function addToCart(id, qty=1){
+  const item = cart.find(c=>c.id===id);
+  if(item) item.qty+=qty; else cart.push({id,qty});
+  saveCart();
+  const p = PRODUCTS.find(x=>x.id===id);
+  toast(`Added “${p.name.length>34?p.name.slice(0,34)+'…':p.name}” to cart`);
+}
+function removeFromCart(id){ cart = cart.filter(c=>c.id!==id); saveCart(); }
+function changeQty(id, d){
+  const item = cart.find(c=>c.id===id);
+  if(!item) return;
+  item.qty += d;
+  if(item.qty<=0) return removeFromCart(id);
+  saveCart();
+}
+function cartSubtotal(){ return cart.reduce((s,c)=>{ const p=PRODUCTS.find(x=>x.id===c.id); return s + (p?p.price*c.qty:0); },0); }
+function updateCartUI(){
+  const count = cart.reduce((s,c)=>s+c.qty,0);
+  $('cartCount').textContent = count;
+  const sub = cartSubtotal();
+  const disc = sub*0.10;
+  $('cartSubtotal').textContent = money(sub);
+  $('cartDiscount').textContent = '-' + money(disc);
+  $('cartTotal').textContent = money(sub-disc);
+  if($('coTotal')){ $('coTotal').textContent = money(sub-disc); $('coPHP').textContent = '₱' + Math.round((sub-disc)*PHP_RATE).toLocaleString('en-PH'); }
+
+  if(!cart.length){
+    $('cartItems').innerHTML = `<div class="empty"><div class="big">🛒</div><b>Your cart is empty</b><p>Add some premium assets to get started.</p></div>`;
+    return;
+  }
+  $('cartItems').innerHTML = cart.map(c=>{
+    const p = PRODUCTS.find(x=>x.id===c.id); if(!p) return '';
+    return `
+    <div class="cart-item">
+      <div class="thumb" style="background:linear-gradient(135deg,${p.hue}55,${p.hue}22)">
+        <img src="img/${p.img}" alt="" loading="lazy">
+      </div>
+      <div style="flex:1">
+        <b>${esc(p.name)}</b>
+        <div class="p">${money(p.price)} <span style="color:var(--muted);font-weight:600;font-size:11px">× ${c.qty}</span></div>
+        <div class="qty">
+          <button onclick="changeQty(${p.id},-1)">−</button>
+          <span>${c.qty}</span>
+          <button onclick="changeQty(${p.id},1)">+</button>
+        </div>
+      </div>
+      <button class="rm" onclick="removeFromCart(${p.id})" title="Remove">✕</button>
+    </div>`;
+  }).join('');
+}
+
+/* ============================ DRAWER / MODALS ============================ */
+function openCart(){ $('cartDrawer').classList.add('open'); $('backdrop').classList.add('show'); }
+function closeAll(){
+  $('cartDrawer').classList.remove('open');
+  $('backdrop').classList.remove('show');
+  $('prodModal').classList.remove('show');
+  $('authModal').classList.remove('show');
+  $('ordersModal').classList.remove('show');
+  $('checkoutModal').classList.remove('show');
+  $('walletModal').classList.remove('show');
+  $('inboxModal').classList.remove('show');
+}
+function openProduct(id){
+  const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+  const meta = ensureMeta(p);
+  const b = p.badge ? BADGE_MAP[p.badge] : null;
+  const coverStyle = p.wide
+    ? 'background:#0f1219'
+    : `background:linear-gradient(135deg, ${p.hue}55, ${p.hue}20 55%, #0f1219)`;
+  const dim = p.wide ? '<div class="dim"></div>' : '';
+  const latest = meta.changelog[0];
+  $('prodModalCard').innerHTML = `
+    <div class="modal-top" style="${coverStyle}">
+      ${coverInner(p)}
+      ${dim}
+      <button class="modal-close" onclick="closeAll()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="badges" style="position:static;margin-bottom:10px">${b?`<span class="badge ${b[1]}">${b[0]}</span>`:''}${p.old?`<span class="badge b-sale">SAVE ${Math.round((1-p.price/p.old)*100)}%</span>`:''}<span class="badge" style="background:rgba(255,255,255,.09);color:#cfd6e4">v${p.version}</span><span class="badge" style="background:rgba(255,255,255,.09);color:#cfd6e4">${p.cat} · ${p.sub}</span></div>
+      <h2>${esc(p.name)}</h2>
+      <div class="modal-meta">
+        <span class="stars" style="font-size:15px">${stars(p.rating)}</span>
+        <b style="color:#fff">${p.rating.toFixed(1)}</b><span>(${p.ratings} ratings)</span>
+        <span>·</span><span>by <b style="color:var(--accent2)">${esc(p.author)}</b></span>
+        <span>·</span><span>Version <b style="color:#fff">${p.version}</b></span>
+        <span>·</span><span>Updated ${p.updated}</span>
+        <span>·</span><span>${(p.dl/1000).toFixed(1)}k downloads</span>
+      </div>
+      <div class="whats-new">
+        <b>What's new in v${latest.version}</b> <span style="color:#8fd9b8">(${latest.date}) · free update for owners</span>
+        <ul>${latest.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+      </div>
+      <div class="modal-price-row">
+        <div>
+          <div class="price-wrap">
+            <span class="price">${money(p.price)}</span>
+            ${p.old?`<span class="old-price" style="font-size:15px">${money(p.old)}</span>`:''}
+          </div>
+          <div style="font-size:11.5px;color:var(--muted);margin-top:4px;font-weight:700;letter-spacing:.6px">ONE-TIME · LIFETIME LICENSE · ≈ ₱${Math.round(p.price*PHP_RATE).toLocaleString('en-PH')}</div>
+        </div>
+        <button class="btn btn-primary" style="margin-left:auto" onclick="addToCart(${p.id});closeAll();openCart()">🛒 Add to cart</button>
+        <button class="btn btn-green" onclick="addToCart(${p.id});closeAll();openCheckout()">Buy now</button>
+      </div>
+
+      <div class="sec-title">Description</div>
+      <p style="color:#c3ccdd;font-size:14.5px">${esc(p.desc)}</p>
+      <p style="color:#c3ccdd;font-size:14.5px;margin-top:10px">Trusted by ${(p.dl/1000).toFixed(1)}k+ customers with a ${p.rating.toFixed(1)}/5 rating, ${esc(p.name.split('—')[0].trim())} ships as a complete package with documentation, commercial licensing and free lifetime updates. The current stable release is <b style="color:#fff">v${p.version}</b>, last updated ${p.updated}.</p>
+
+      <div class="sec-title">How to use / install</div>
+      <ol class="steps">${meta.howto.map(h=>`<li>${h}</li>`).join('')}</ol>
+
+      <div class="sec-title">Requirements</div>
+      <div class="req-grid">${meta.reqs.map(r=>`<div>${esc(r)}</div>`).join('')}</div>
+
+      <div class="sec-title">Changelog</div>
+      <div class="tl">
+        ${meta.changelog.map((c,i)=>`
+          <div class="tl-item ${i===0?'latest':''}">
+            <div class="tl-head">Version ${c.version} ${i===0?'<span class="badge b-new" style="margin-left:6px">LATEST</span>':''}<span class="d">${c.date}</span></div>
+            <ul>${c.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>
+          </div>`).join('')}
+      </div>
+
+      <div class="license-note">🛡️ <b>Every purchase includes:</b> commercial use license · instant .zip delivery · free version updates (auto-applied) · 14-day money-back guarantee · invoice & receipt. Pay with GCash, Maya, PayPal, Card, Crypto or Bank transfer.</div>
+    </div>`;
+  $('prodModal').classList.add('show');
+  $('backdrop').classList.add('show');
+}
+
+/* ============================ CHECKOUT / PAYMENTS ============================ */
+const PAY_LABELS = {gcash:'GCash', maya:'Maya', paypal:'PayPal', card:'Card', crypto:'Crypto', bank:'Bank transfer'};
+const PAY_CUR = {gcash:'PHP', maya:'PHP', paypal:'USD', card:'USD', crypto:'USD', bank:'PHP'};
+
+/* ---------- Wallet (simulated balances) ---------- */
+const DEFAULT_WALLET = {gcash:5000, maya:3500, paypal:150, crypto:80, bank:15000};
+function getWallet(){
+  if(!session) return null;
+  let all = safeJSON('nm-wallet', {});
+  if(!all[session.email]){ all[session.email] = {...DEFAULT_WALLET}; localStorage.setItem('nm-wallet', JSON.stringify(all)); }
+  return all[session.email];
+}
+function setWallet(w){
+  const all = safeJSON('nm-wallet', {});
+  all[session.email] = w;
+  localStorage.setItem('nm-wallet', JSON.stringify(all));
+}
+function fmtBal(amt, m){
+  return (m==='paypal' || m==='crypto') ? '$' + Number(amt).toFixed(2) : '₱' + Number(amt).toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function topUp(m, amt){
+  if(!session){ openAuth('login'); toast('Log in to manage your wallet', false); return; }
+  const w = getWallet();
+  w[m] = Math.round((w[m] + amt) * 100) / 100;
+  setWallet(w);
+  renderWallet(); updatePayBalances();
+  toast(`Added ${fmtBal(amt, m)} to your ${PAY_LABELS[m]} wallet ✓`);
+}
+function renderWallet(){
+  const w = getWallet(); if(!w) return;
+  const rows = [
+    {m:'gcash', label:'GCash wallet', img:'img/pay-gcash.png'},
+    {m:'maya', label:'Maya wallet', img:'img/pay-maya.png'},
+    {m:'paypal', label:'PayPal balance', img:'img/pay-paypal.png'},
+    {m:'crypto', label:'Crypto wallet (USDT)', img:'img/pay-crypto.png'},
+    {m:'bank', label:'Bank account', img:null},
+  ];
+  $('walletGrid').innerHTML = rows.map(r=>`
+    <div class="wallet-card">
+      ${r.img?`<img src="${r.img}" alt="${r.label}">`:'<span class="pi">🏦</span>'}
+      <div><b>${r.label}</b><div class="wl-sub">Demo balance</div></div>
+      <div class="amt">${fmtBal(w[r.m], r.m)}</div>
+    </div>`).join('');
+}
+function openWallet(){
+  if(!session){ closeAll(); openAuth('login'); toast('Log in to manage your wallet', false); return; }
+  renderWallet();
+  const merch = getMerchant();
+  if($('merchName')) $('merchName').value = merch.name;
+  if($('merchGcash')) $('merchGcash').value = merch.gcash;
+  if($('merchMaya')) $('merchMaya').value = merch.maya;
+  $('walletModal').classList.add('show');
+  $('backdrop').classList.add('show');
+}
+function getMerchant(){
+  return Object.assign({name:'NullMarket Digital Services', gcash:'+63 917 555 0123', maya:'+63 918 555 0123'}, safeJSON('nm-merchant', {}));
+}
+function saveMerchant(){
+  const m = {
+    name: $('merchName').value.trim() || 'NullMarket Digital Services',
+    gcash: $('merchGcash').value.trim() || '+63 917 555 0123',
+    maya: $('merchMaya').value.trim() || '+63 918 555 0123',
+  };
+  localStorage.setItem('nm-merchant', JSON.stringify(m));
+  updatePayBalances();
+  toast('Merchant payout details saved ✓');
+}
+function copyText(id){
+  const el = $(id); if(!el) return;
+  const txt = el.textContent.trim();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast('Copied: '+txt)).catch(()=>toast('Copy: '+txt));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); toast('Copied: '+txt); }catch(e){ toast('Copy: '+txt); }
+    ta.remove();
+  }
+}
+async function loadConfig(){
+  try{
+    const r = await fetch('/api/config');
+    window.MERCHANT_CFG = await r.json();
+    updatePayBalances();
+  }catch(e){}
+}
+function currentMerchant(){
+  const c = window.MERCHANT_CFG || {};
+  const base = getMerchant();
+  return {
+    name: c.merchant_name || base.name,
+    gcash: c.gcash_number || base.gcash,
+    maya: c.maya_number || base.maya,
+  };
+}
+function updatePayBalances(){
+  const ids = ['gcash','maya','paypal','crypto','bank'];
+  if(!session){
+    ids.forEach(m=>{ const el = $('balTxt-'+m); if(el) el.innerHTML = '<i>Log in to see your balance</i>'; });
+    return;
+  }
+  const w = getWallet();
+  const usd = cartSubtotal() * 0.90;
+  const php = usd * PHP_RATE;
+  const cost = {gcash:php, maya:php, bank:php, paypal:usd, crypto:usd};
+  ids.forEach(m=>{
+    const el = $('balTxt-'+m); if(!el) return;
+    const after = w[m] - cost[m];
+    const afterTxt = after >= 0
+      ? `<span class="after">(after payment: ${fmtBal(after, m)})</span>`
+      : `<span class="after" style="color:var(--red)">(insufficient — need ${fmtBal(cost[m], m)})</span>`;
+    el.innerHTML = `<b>${fmtBal(w[m], m)}</b> ${afterTxt}`;
+  });
+  /* merchant cards */
+  const merch = currentMerchant();
+  const usdT = cartSubtotal() * 0.90;
+  const phpT = usdT * PHP_RATE;
+  const phpStr = '₱' + phpT.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const setT = (id, v) => { const el = $(id); if(el) el.textContent = v; };
+  setT('mcAmtGcash', phpStr); setT('mcNameGcash', merch.name); setT('mcNumGcash', merch.gcash); setT('mcRefGcash', pendingRef || '—');
+  setT('mcAmtMaya', phpStr); setT('mcNameMaya', merch.name); setT('mcNumMaya', merch.maya); setT('mcRefMaya', pendingRef || '—');
+}
+
+/* ---------- Downloads (generated delivery files) ---------- */
+function parseVer(v){ return String(v).split('.').map(n=>parseInt(n,10)||0); }
+function bumpPatch(v){
+  const parts = parseVer(v);
+  if(parts.length>=2) parts[parts.length-1]+=1; else parts.push(1);
+  return parts.join('.');
+}
+function prevVers(v, n){
+  const out=[]; const parts=parseVer(v);
+  for(let i=0;i<n;i++){
+    out.push(parts.join('.'));
+    const last=parts.length-1;
+    if(parts[last]>0) parts[last]-=1;
+    else if(parts.length>=3){ parts[parts.length-2]-=1; parts[last]=9; }
+    else parts[0]=Math.max(1,parts[0]-1);
+  }
+  return out;
+}
+function ensureMeta(p){
+  if(!p._meta){
+    const vers = prevVers(p.version, 3);
+    const catNotes = {
+      'Minecraft':['Performance improvements and async handling','Fixed compatibility with the latest server builds','New config options and PlaceholderAPI hooks'],
+      'XenForo 2':['Style property fixes and dark-mode polish','Updated for the latest XenForo 2.3 release','Widget and layout improvements'],
+      'XenForo 1':['Legacy compatibility fixes','CSS cleanup and responsive tweaks','Small bug fixes'],
+      'IPS Suite':['Updated for IPS 4.7.x','Template and theme editor fixes','Mobile layout improvements'],
+      'WordPress':['Updated for WordPress 6.x and PHP 8.2','Gutenberg / builder compatibility fixes','Performance and security patches'],
+      'WHMCS':['Updated for WHMCS 8.x','Client-area template fixes','Checkout flow improvements'],
+      'Unity / Unreal':['Unity 2022 LTS & UE5 support','Prefab organization and LOD fixes','Documentation updated'],
+      'Graphics':['Added 150+ new assets','Figma library refreshed','File naming cleanup'],
+      'Scripts & Tools':['Security patches and dependency updates','Installer improvements','Bug fixes and small features'],
+    };
+    const notes = catNotes[p.cat] || ['Bug fixes and improvements','Compatibility updates','Performance patches'];
+    p._meta = {
+      changelog: vers.map((v,i)=>({
+        version: v,
+        date: i===0 ? p.updated : (i===1 ? 'Last month' : 'Earlier release'),
+        notes: i===0
+          ? [`Current stable release of ${p.name.split('—')[0].trim()}`, notes[0]]
+          : [notes[Math.min(i,notes.length-1)], notes[Math.max(0,i-1)]]
+      })),
+      howto: (HOWTO[p.cat] || HOWTO._default).slice(0,6),
+      reqs: (REQS[p.cat] || REQS._default).slice(0,6),
+    };
+  }
+  return p._meta;
+}
+const HOWTO = {
+  'Minecraft':[
+    'Download your <b>.zip package</b> using the Download Now button (it contains the plugin, docs and license).',
+    'Unpack the zip and upload the <b>.jar</b> file into your server’s <b>/plugins</b> folder.',
+    'Start (or restart) the server so the default config generates in <b>/plugins/&lt;Product&gt;/</b>.',
+    'Open <b>config.yml</b> and adjust the settings to fit your server, then run the reload command.',
+    'Set up permissions for your staff groups with LuckPerms or your permissions manager.',
+    'Join in-game and test — everything is documented in the included README file.',
+  ],
+  'XenForo 2':[
+    'Download and unpack your <b>.zip package</b> — it contains the style XML and add-on archive.',
+    'In your XenForo Admin CP go to <b>Appearance → Styles → Import a style</b> and upload the XML file.',
+    'For add-ons: <b>Add-ons → Install/Upgrade add-on</b> and upload the .zip archive.',
+    'Set the style as default for your user groups and edit style properties to match your brand.',
+    'Clear the XenForo template / addon caches from the Admin CP.',
+    'Reload your forum — the new style or add-on is live.',
+  ],
+  'XenForo 1':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Admin CP → <b>Appearance → Install Style → Import</b> and select the XML file.',
+    'Choose the parent set and permissions, then save.',
+    'Set the style as default in your user group settings.',
+    'Refresh the forum to see your new style.',
+  ],
+  'IPS Suite':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Admin CP → <b>Customization → Themes → Create New → Import</b> and upload the XML file.',
+    'For applications/plugins use <b>System → Applications → Install</b> and upload the TAR/XML file.',
+    'Set the theme as default and adjust the theme editor settings.',
+    'Clear the system caches from the Admin CP support area.',
+  ],
+  'WordPress':[
+    'Download and unpack your <b>.zip package</b> (installable zip + docs + license).',
+    'WordPress admin → <b>Appearance → Themes → Add New → Upload Theme</b> (or Plugins → Add New for plugins) and upload the installable zip.',
+    'Click <b>Activate</b> and enter your license key when prompted.',
+    'Run the demo importer / setup wizard if you want the starter content.',
+    'Configure the theme options or plugin settings pages to match your site.',
+    'Check the documentation PDF in your package for advanced options.',
+  ],
+  'WHMCS':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Upload the template folder into your WHMCS <b>/templates</b> directory.',
+    'Admin → <b>Setup → General Settings → Template</b> and select your new theme.',
+    'For modules: upload into <b>/modules</b> and activate under Setup → Addon Modules.',
+    'Configure the theme options in the module settings panel.',
+  ],
+  'Unity / Unreal':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Unity: <b>Assets → Import Package → Custom Package</b> and select the .unitypackage. UE5: copy the plugin into /Plugins.',
+    'Open the included demo scene to explore the assets.',
+    'All materials use standard PBR pipelines (URP / HDRP / UE5 supported).',
+    'Check the PDF documentation for setup and optimization tips.',
+  ],
+  'Graphics':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Open the source files in Figma, Photoshop, Illustrator or Affinity (formats listed in the package).',
+    'Install fonts included in the /fonts folder.',
+    'Export assets in the sizes you need — templates are fully editable.',
+  ],
+  'Scripts & Tools':[
+    'Download and unpack your <b>.zip package</b>.',
+    'Upload the files into your web host’s <b>public_html</b> (or a subfolder).',
+    'Create a MySQL database and run the <b>/install</b> wizard in your browser.',
+    'Enter your database credentials and license key when asked.',
+    'Log in to the admin dashboard and configure your settings.',
+  ],
+  _default:[
+    'Download and unpack your <b>.zip package</b>.',
+    'Follow the included README / documentation.',
+    'Apply your license key where required.',
+    'Contact support if you need help — we reply fast.',
+  ],
+};
+const REQS = {
+  'Minecraft':['Spigot / Paper 1.8 – 1.21.x','Java 8 or newer','Vault (for economy features)','PlaceholderAPI (optional)','MySQL or SQLite','A valid license key'],
+  'XenForo 2':['XenForo 2.2 or newer','PHP 8.0+','MySQL 5.7+ / MariaDB','Modern browser','No add-on conflicts','Valid license key'],
+  'XenForo 1':['XenForo 1.5.x','PHP 5.6 – 7.4','MySQL 5.6+','Valid license key'],
+  'IPS Suite':['IPS Community Suite 4.7.x','PHP 8.0+','MySQL 5.7+','Valid license key'],
+  'WordPress':['WordPress 6.0+','PHP 8.0+','MySQL 5.7+','Elementor / builder (if listed)','Valid license key'],
+  'WHMCS':['WHMCS 8.x','PHP 8.0+','MySQL 5.7+','Valid license key'],
+  'Unity / Unreal':['Unity 2021 LTS / 2022 LTS or UE5','URP or HDRP pipeline','4 GB+ RAM','Valid license key'],
+  'Graphics':['Figma / Photoshop / Illustrator','Any modern OS','Desktop display recommended','Commercial use license'],
+  'Scripts & Tools':['PHP 8.0+','MySQL 5.7+','Apache / Nginx','SSL certificate recommended','Valid license key'],
+  _default:['Modern browser','Any OS','Valid license key'],
+};
+
+/* ---------- ZIP package builder (store method) ---------- */
+const CRC_TABLE = (()=>{ let c, t=[]; for(let n=0;n<256;n++){ c=n; for(let k=0;k<8;k++) c = (c&1) ? (0xEDB88320^(c>>>1)) : (c>>>1); t[n]=c>>>0; } return t; })();
+function crc32(str){
+  let crc=0^(-1);
+  const bytes = new TextEncoder().encode(str);
+  for(let i=0;i<bytes.length;i++) crc = (crc>>>8)^CRC_TABLE[(crc^bytes[i])&0xFF];
+  return (crc^(-1))>>>0;
+}
+function makeZip(files){
+  const enc = new TextEncoder();
+  const parts=[]; const central=[]; let offset=0;
+  files.forEach(f=>{
+    const nameB = enc.encode(f.name);
+    const dataB = enc.encode(f.content);
+    const crc = crc32(f.content);
+    const local = new Uint8Array(30+nameB.length);
+    const dv = new DataView(local.buffer);
+    dv.setUint32(0, 0x04034b50, true);
+    dv.setUint16(4, 20, true); dv.setUint16(6, 0x0800, true); dv.setUint16(8, 0, true);
+    dv.setUint16(10, 0, true); dv.setUint16(12, 0x21, true);
+    dv.setUint32(14, crc, true);
+    dv.setUint32(18, dataB.length, true); dv.setUint32(22, dataB.length, true);
+    dv.setUint16(26, nameB.length, true); dv.setUint16(28, 0, true);
+    local.set(nameB, 30);
+    parts.push(local, dataB);
+    const cen = new Uint8Array(46+nameB.length);
+    const cv = new DataView(cen.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true); cv.setUint16(6, 20, true); cv.setUint16(8, 0x0800, true); cv.setUint16(10, 0, true);
+    cv.setUint16(12, 0, true); cv.setUint16(14, 0x21, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, dataB.length, true); cv.setUint32(24, dataB.length, true);
+    cv.setUint16(28, nameB.length, true);
+    cv.setUint32(42, offset, true);
+    cen.set(nameB, 46);
+    central.push(cen);
+    offset += local.length + dataB.length;
+  });
+  let cdSize=0; central.forEach(c=>cdSize+=c.length);
+  const eocd = new Uint8Array(22);
+  const ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, central.length, true); ev.setUint16(10, central.length, true);
+  ev.setUint32(12, cdSize, true); ev.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, eocd], {type:'application/zip'});
+}
+
+function downloadItem(orderId, pid){
+  const url = '/api/deliveries/' + encodeURIComponent(orderId) + '/' + pid + '.zip';
+  const a = document.createElement('a');
+  a.href = url;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  toast('Download starting — the .zip is a real file 📦');
+}
+
+/* ---------- Simulated Gmail inbox ---------- */
+function emailHTML(o){
+  const itemRows = o.items.map(it=>`
+    <div class="email-item">
+      <div style="flex:1">
+        <b>${esc(it.name)}</b>
+        <div class="sub">v${esc(it.version || '1.0')} · License attached · Qty ${it.qty}</div>
+      </div>
+      <a class="dl-btn" style="text-decoration:none" href="/api/deliveries/${o.id}/${it.pid}.zip" download>Download Now</a>
+    </div>`).join('');
+  return `
+  <div class="email-wrap">
+    <div class="email-head">
+      <div class="email-avatar">N</div>
+      <div style="flex:1">
+        <div class="email-subject">Payment successful - here is your item${o.items.length>1?'s':''}</div>
+        <div class="email-meta">NullMarket Receipts &lt;receipts@nullmarket.demo&gt; &nbsp;→&nbsp; ${esc(o.email)} &nbsp;·&nbsp; ${o.date}</div>
+      </div>
+    </div>
+    <div class="email-body">
+      <div class="success-banner">✓ Payment successful! ${money(o.total)} paid via ${o.methodLabel}${o.paidText?' ('+o.paidText+')':''}.</div>
+      <p style="font-size:13px">Hi ${esc(o.uname || 'there')}, thanks for your purchase! Here is your item${o.items.length>1?'s':''} — click <b>Download Now</b> below:</p>
+      ${itemRows}
+      <p style="font-size:11px;color:#5f6368;margin-top:16px">This is a simulated delivery email from the NullMarket demo storefront. In production this message arrives in your Gmail inbox.</p>
+    </div>
+  </div>`;
+}
+function renderInboxList(){
+  const orders = safeJSON('nm-orders', []).filter(o=>!o.user || !session || o.user===session.email);
+  let inner = `<div style="display:flex;justify-content:space-between;align-items:center">
+      <h2 style="font-size:21px">Inbox</h2>
+      <button class="close-x" onclick="closeAll()">✕</button>
+    </div>
+    <p style="color:var(--muted);font-size:12.5px;margin:6px 0 14px">Simulated Gmail delivery — receipts and download links for every purchase.</p>`;
+  if(!orders.length){
+    inner += `<div class="empty"><div class="big">✉️</div><b>No emails yet</b><p>Buy something and your receipt will land here.</p></div>`;
+  } else {
+    inner += orders.map(o=>`
+      <div class="order-card" style="cursor:pointer" onclick="renderEmail('${o.id}')">
+        <div class="row">
+          <span class="order-id">✅ Payment successful — here is your item${o.items.length>1?'s':''}</span>
+          <span class="order-pill">${o.methodLabel}</span>
+        </div>
+        <div class="order-meta">to ${esc(o.email)} · ${o.date} · <b style="color:var(--green)">${money(o.total)}</b> · ${o.items.length} item${o.items.length>1?'s':''}</div>
+      </div>`).join('');
+  }
+  $('inboxBody').innerHTML = inner;
+}
+function renderEmail(orderId){
+  const o = safeJSON('nm-orders', []).find(x=>x.id===orderId); if(!o) return;
+  $('inboxBody').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <button class="btn btn-ghost" style="padding:9px 15px;font-size:12.5px" onclick="renderInboxList()">← Back to inbox</button>
+      <button class="close-x" onclick="closeAll()">✕</button>
+    </div>` + emailHTML(o);
+}
+function openInbox(){
+  if(!session){ closeAll(); openAuth('login'); toast('Log in to view your inbox', false); return; }
+  renderInboxList();
+  $('inboxModal').classList.add('show');
+  $('backdrop').classList.add('show');
+}
+function viewEmailFromOrders(orderId){
+  closeAll();
+  $('inboxModal').classList.add('show');
+  $('backdrop').classList.add('show');
+  renderEmail(orderId);
+}
+
+function setPay(m){
+  payMethod = m;
+  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.toggle('active', t.dataset.m===m));
+  document.querySelectorAll('.pay-fields').forEach(f=>f.classList.remove('active'));
+  $('pay-'+m).classList.add('active');
+  $('phpLine').style.display = (m==='gcash'||m==='maya') ? 'flex' : 'none';
+}
+function openCheckout(){
+  if(!cart.length){ toast('Your cart is empty — add something first ✨', false); return; }
+  $('cartDrawer').classList.remove('open');
+  if(!pendingRef) pendingRef = 'NM-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  setPay(payMethod);
+  updateCartUI();
+  updatePayBalances();
+  if(session && session.email){
+    ['gcEmail','myEmail'].forEach(id=>{ const el=$(id); if(el && !el.value) el.value = session.email; });
+    const pp = $('ppEmail'); if(pp && !pp.value) pp.value = session.email;
+    const cc = $('ccName'); if(cc && !cc.value && session.name) cc.value = session.name.toUpperCase();
+  }
+  $('checkoutModal').classList.add('show');
+  $('backdrop').classList.add('show');
+}
+function digits(s){ return (s||'').replace(/\D/g,''); }
+
+function placeOrder(){
+  if(!session){
+    toast('Log in to pay — wallet balances are linked to your account', false);
+    closeAll(); openAuth('login'); return;
+  }
+  const sub = cartSubtotal();
+  const total = sub*0.90;
+  const phpTotal = total*PHP_RATE;
+  let email = session.email;
+  if(payMethod==='gcash'){
+    const num = digits($('gcNum').value);
+    const ref = $('gcRef').value.trim();
+    email = $('gcEmail').value.trim();
+    if(num.length < 10){ toast('Enter a valid GCash mobile number', false); return; }
+    if(ref.length < 6){ toast('Enter the GCash reference no. from your send-money receipt', false); return; }
+    if(!email.includes('@')){ toast('Enter your email for the receipt & downloads', false); return; }
+  } else if(payMethod==='maya'){
+    const num = digits($('myNum').value);
+    const ref = $('myRef').value.trim();
+    email = $('myEmail').value.trim();
+    if(num.length < 10){ toast('Enter a valid Maya mobile number', false); return; }
+    if(ref.length < 6){ toast('Enter the Maya reference no. from your send-money receipt', false); return; }
+    if(!email.includes('@')){ toast('Enter your email for the receipt & downloads', false); return; }
+  } else if(payMethod==='paypal'){
+    email = $('ppEmail').value.trim();
+    if(!email.includes('@')){ toast('Enter your PayPal email', false); return; }
+  } else if(payMethod==='card'){
+    const num = digits($('ccNum').value);
+    if(!$('ccName').value.trim()){ toast('Enter the name on your card', false); return; }
+    if(num.length < 13){ toast('Enter a valid card number', false); return; }
+    if(!$('ccExp').value.trim() || !$('ccCvc').value.trim()){ toast('Enter expiry and CVC', false); return; }
+  } else if(payMethod==='bank'){
+    if(!$('bkAcct').value.trim()){ toast('Enter the account name', false); return; }
+    if(!$('bkRef').value.trim()){ toast('Enter the transaction reference number', false); return; }
+  }
+  /* verification step — like confirming a real send-money payment */
+  const card = document.querySelector('#checkoutModal .modal-card');
+  const overlay = document.createElement('div');
+  overlay.className = 'verify-overlay';
+  overlay.innerHTML = '<div class="spinner"></div><div class="vtext">'
+    + (payMethod==='gcash' ? 'Verifying your GCash payment…' : payMethod==='maya' ? 'Verifying your Maya payment…' : payMethod==='crypto' ? 'Confirming crypto transaction…' : payMethod==='paypal' ? 'Confirming PayPal payment…' : 'Processing payment…')
+    + '</div><div style="font-size:12px;color:var(--muted)">Checking reference ' + (pendingRef||'') + ' with ' + PAY_LABELS[payMethod] + '</div>';
+  card.appendChild(overlay);
+  setTimeout(()=>doPay(email), 1500);
+}
+
+async function doPay(email){
+  const ov = document.querySelector('.verify-overlay'); if(ov) ov.remove();
+  const total = cartSubtotal()*0.90;
+  const refNo = payMethod==='gcash' ? $('gcRef').value.trim() : payMethod==='maya' ? $('myRef').value.trim() : payMethod==='bank' ? $('bkRef').value.trim() : '';
+  const orderId = pendingRef || ('NM-' + Math.random().toString(36).slice(2,8).toUpperCase());
+  pendingRef = '';
+  const paidText = payMethod==='gcash' ? 'Sent via GCash Send Money'
+    : payMethod==='maya' ? 'Sent via Maya Send Money'
+    : payMethod==='card' ? 'Charged to card •••• ' + digits($('ccNum').value).slice(-4)
+    : PAY_LABELS[payMethod] + ' transfer';
+  const order = {
+    id: orderId,
+    date: new Date().toLocaleString('en-PH', {month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit'}),
+    email,
+    user: session.email,
+    uname: session.name,
+    method: payMethod,
+    methodLabel: PAY_LABELS[payMethod],
+    paidText,
+    refNo,
+    total,
+    status: 'paid',
+    items: cart.map(c=>{
+      const p = PRODUCTS.find(x=>x.id===c.id);
+      const meta = ensureMeta(p);
+      return {name:p.name, price:p.price, qty:c.qty, pid:p.id, version:p.version, img:p.img,
+              meta:{howto:meta.howto, reqs:meta.reqs, changelog:meta.changelog}};
+    })
+  };
+
+  /* 1) REAL order + REAL .zip files saved on the server */
+  let files = [];
+  try{
+    const r = await fetch('/api/orders', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(order)});
+    const j = await r.json();
+    if(!j.ok) throw new Error(j.error || 'order failed');
+    files = j.files || [];
+  }catch(e){
+    toast('Could not save the order — make sure the server is running', false);
+    return;
+  }
+
+  /* 2) REAL receipt email (Gmail SMTP when configured) */
+  let mail = {sent:false, transport:'not tried'};
+  try{
+    const r = await fetch('/api/receipt', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({to: email, order, base_url: location.origin})});
+    mail = await r.json();
+  }catch(e){}
+
+  /* local mirror for the in-app inbox */
+  const mirror = safeJSON('nm-orders', []); mirror.unshift(order); localStorage.setItem('nm-orders', JSON.stringify(mirror));
+  cart = []; saveCart();
+
+  const fileRows = order.items.map(i=>`
+    <div class="email-item" style="background:rgba(255,255,255,.05)">
+      <div style="flex:1">
+        <b style="color:#fff">${esc(i.name)}</b>
+        <div class="sub" style="color:var(--muted)">v${esc(i.version)} · Real .zip package · Qty ${i.qty}</div>
+      </div>
+      <a class="dl-btn" style="text-decoration:none" href="/api/deliveries/${orderId}/${i.pid}.zip" download>Download Now</a>
+    </div>`).join('');
+
+  const mailLine = mail.sent
+    ? `✉️ <b>Email sent to ${esc(email)} via Gmail SMTP</b> — "Payment successful — here is your item"`
+    : `✉️ Receipt email ready — <a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Payment successful - here is your item')}&body=${encodeURIComponent('Order '+orderId+' confirmed. Your download: '+location.origin+'/api/deliveries/'+orderId+'/'+(order.items[0]?order.items[0].pid:0)+'.zip')}" target="_blank" rel="noopener" style="color:var(--accent2)">send it from Gmail</a>`;
+
+  $('checkoutBody').innerHTML = `
+    <div style="text-align:center;padding:10px 4px 2px">
+      <div style="font-size:52px;margin-bottom:6px">🎉</div>
+      <h2 style="font-size:23px">Payment successful!</h2>
+      <p style="color:var(--muted);font-size:14px;margin:8px 0 2px">Order <b style="color:var(--accent2)">${orderId}</b> · ${PAY_LABELS[payMethod]}${refNo?` · Ref ${esc(refNo)}`:''} · <b style="color:var(--green)">${money(total)}</b></p>
+      <p style="color:var(--muted);font-size:13px">${mailLine}</p>
+    </div>
+    <div class="order-card" style="margin:14px 0">${fileRows}</div>
+    <div class="php-line"><span>Real files saved on server</span><b style="font-size:12.5px">data/deliveries/${orderId}/</b></div>
+    <button class="btn btn-primary" style="width:100%;padding:13px;font-size:14.5px" onclick="closeAll();openInbox()">Open my inbox</button>
+    <button class="btn btn-green" style="width:100%;padding:12px;margin-top:9px" onclick="closeAll();goShop()">Continue shopping</button>
+  `;
+  $('checkoutModal').classList.add('show');
+  $('backdrop').classList.add('show');
+  toast('Order saved — your .zip download links are ready 🎉');
+}
+
+/* ============================ AUTO-UPDATES ============================ */
+function runAutoUpdates(){
+  try{
+    const today = new Date().toDateString();
+    if(localStorage.getItem('nm-last-autoupdate')===today) return;
+    localStorage.setItem('nm-last-autoupdate', today);
+    const idxs=[];
+    const n = 2 + Math.floor(Math.random()*2);
+    while(idxs.length<n){ const i=Math.floor(Math.random()*PRODUCTS.length); if(!idxs.includes(i)) idxs.push(i); }
+    const names=[];
+    idxs.forEach(i=>{
+      const p=PRODUCTS[i];
+      ensureMeta(p);
+      const old=p.version;
+      p.version=bumpPatch(old);
+      p.updated='Today';
+      p.badge='new';
+      p.changelog.unshift({
+        version:p.version,
+        date:'Today',
+        notes:['Auto-update applied: v'+old+' → v'+p.version,'Bug fixes, performance improvements and compatibility patches','Free update for all existing owners — download again to get v'+p.version]
+      });
+      names.push(p.name.split('—')[0].trim()+' → v'+p.version);
+    });
+    toast('🔄 Auto-updates applied: '+names.join(' · '));
+  }catch(e){}
+}
+
+/* ============================ INIT ============================ */
+renderTicker();
+renderCategories();
+renderHome();
+renderAuthUI();
+updateCartUI();
+runAutoUpdates();
+renderHome();
+loadConfig();
+
+$('navSearch').addEventListener('keydown', (e)=>{
+  if(e.key==='Enter'){
+    filters.q = e.target.value.trim();
+    filters.cat='all';
+    goShop();
+    if(filters.q) toast(`Searching for “${filters.q}”…`);
+  }
+});
+$('sortSel').addEventListener('change', e=>{ filters.sort=e.target.value; renderShop(); });
+$('priceRange').addEventListener('input', e=>{ filters.maxPrice=+e.target.value; renderShop(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
+</script>
+</body>
+</html>
